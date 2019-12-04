@@ -12,7 +12,7 @@ import 'normalize.css/normalize.css'
 import 'lib-flexible/flexible.js'
 import '@/assets/styles/common.less'
 import '@/assets/icons/iconfont.css'
-import { Lazyload } from Vant from 'vant';
+import { Lazyload } from Vant from 'vant'
 
 import 'vant/lib/index.css'
 
