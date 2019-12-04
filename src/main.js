@@ -12,14 +12,16 @@ import 'normalize.css/normalize.css'
 import 'lib-flexible/flexible.js'
 import '@/assets/styles/common.less'
 import '@/assets/icons/iconfont.css'
+import { Lazyload } from Vant from 'vant';
+
+import 'vant/lib/index.css'
+
+Vue.use(Vant)
+Vue.use(Lazyload)
 
 // 实际打包时应该不引入mock
 /* eslint-disable */
 if (process.env.NODE_ENV !== 'production') require('@/mock')
-
-Vue.use(iView, {
-  i18n: (key, value) => i18n.t(key, value)
-})
 /**
  * @description 生产环境关掉提示
  */

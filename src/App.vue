@@ -1,12 +1,24 @@
 <template>
   <div id="app">
-    <router-view/>
+    <div class="main">
+      <router-view/>
+    </div>
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
+import footerBar from '_c/footer-bar'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    footerBar
+  },
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 
@@ -23,5 +35,10 @@ html,body{
 }
 #app {
   .size;
+  display: flex;
+  flex-direction: column;
+  .main {
+    flex: 1;
+  }
 }
 </style>

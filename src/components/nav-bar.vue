@@ -1,17 +1,20 @@
 <template>
-  <div>
+  <div class="nav-bar">
 
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: 'nav-bar',
   data () {
     return {
+
     }
-  },
-  mounted () {
   }
 }
 </script>
+
+<style lang="less" scoped>
+
+</style>
