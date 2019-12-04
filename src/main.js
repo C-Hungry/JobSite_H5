@@ -12,12 +12,12 @@ import 'normalize.css/normalize.css'
 import 'lib-flexible/flexible.js'
 import '@/assets/styles/common.less'
 import '@/assets/icons/iconfont.css'
-import { Lazyload } from Vant from 'vant'
-
+import Vant from 'vant'
+import { Lazyload } from 'vant'
 import 'vant/lib/index.css'
 
-Vue.use(Vant)
-Vue.use(Lazyload)
+Vue.use(Vant);
+Vue.use(Lazyload);
 
 // 实际打包时应该不引入mock
 /* eslint-disable */
