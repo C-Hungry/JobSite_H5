@@ -620,6 +620,156 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "H5首页",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/H5IndexData",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"H5IndexData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "H5岗位列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"PageIndex\":1,\n\t\"PageSize\":15,\n\t\"KeyWords\":\"\",\n\t\"Keys\":\"\",\n\t\"SortType\":1//1时间 2推荐 3热度\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/H5JobList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"H5JobList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "H5岗位详情",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Id\":10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/H5JobInfo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"H5JobInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "微信登录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Code\":\"1234567878\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/WechatLogin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"WechatLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "岗位报名",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Id\":1//岗位Id\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/JobSignUp",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"JobSignUp"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -646,13 +796,13 @@
 	],
 	"variable": [
 		{
-			"id": "dc7cba6e-0b1d-4f02-9e92-b9371446e55c",
+			"id": "ffca0c89-f58f-420c-bbfb-b24bf0b140f6",
 			"key": "url",
 			"value": "http://192.168.1.234:600",
 			"type": "string"
 		},
 		{
-			"id": "f0f9a220-a69a-4e26-99f1-9ec17d4615d9",
+			"id": "7d5c0fa8-1094-404d-b327-0bd593519f50",
 			"key": "token",
 			"value": "7ea7f41087794f1292881f419810de30",
 			"type": "string"

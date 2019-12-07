@@ -29,7 +29,7 @@ export default {
 }
 html,body{
   .size;
-  overflow: hidden;
+  overflow: auto;
   margin: 0;
   padding: 0;
 }
@@ -39,6 +39,7 @@ html,body{
   flex-direction: column;
   .main {
     flex: 1;
+    padding-bottom: 60px; 
   }
 }
 </style>
