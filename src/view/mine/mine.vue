@@ -12,11 +12,11 @@
     </div>
     <div>
       <van-cell-group>
-        <van-cell icon="edit" title="完善资料" is-link />
-        <van-cell icon="balance-pay" title="我的钱包" is-link />
-        <van-cell icon="good-job-o" title="我的推荐" is-link />
-        <van-cell icon="phone-o" title="更换手机" is-link />
-        <van-cell icon="friends-o" title="关于我们" is-link />
+        <van-cell @click="apply" icon="edit" title="完善资料" is-link />
+        <van-cell @click="apply" icon="balance-pay" title="我的钱包" is-link />
+        <van-cell @click="apply" icon="good-job-o" title="我的推荐" is-link />
+        <van-cell @click="apply" icon="phone-o" title="更换手机" is-link />
+        <van-cell @click="apply" icon="friends-o" title="关于我们" is-link />
       </van-cell-group>
     </div>
   </div>
@@ -30,6 +30,11 @@ export default {
       info: {
         avatar: ""
       }
+    }
+  },
+  methods: {
+    apply() {
+      this.$toast('功能开发中...');
     }
   }
 }

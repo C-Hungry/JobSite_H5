@@ -52,7 +52,7 @@
       <div class="f14 fb title">岗位介绍</div>
       <div class="lh100" v-html="jobInfo.JobDesc"></div>
     </div>
-    <div class="footer-bar">
+    <div class="footer-bar" @click="apply">
       <div><span class="money">{{jobInfo.SalaryByFactory}}元/小时</span></div>
       <div>马上报名</div>
     </div>
@@ -77,6 +77,9 @@ export default {
         .finally(() => {
 
         });
+    },
+    apply() {
+      this.$toast('功能开发中...');
     }
   },
   created() {
