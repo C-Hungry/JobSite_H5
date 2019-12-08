@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <div class="main">
-      <router-view/>
+      <keep-alive>
+        <router-view v-if="this.$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!this.$route.meta.keepAlive"></router-view>
     </div>
-    <footer-bar></footer-bar>
+    <footer-bar v-if="!this.$route.meta.hideFooter"></footer-bar>
   </div>
 </template>
 
@@ -29,7 +32,7 @@ export default {
 }
 html,body{
   .size;
-  overflow: auto;
+  // overflow: auto;
   margin: 0;
   padding: 0;
 }
@@ -39,7 +42,7 @@ html,body{
   flex-direction: column;
   .main {
     flex: 1;
-    padding-bottom: 60px; 
+    margin-bottom: 60px; 
   }
 }
 </style>

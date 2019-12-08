@@ -3,7 +3,7 @@ import axios from '@/libs/api.request'
 // 获取岗位列表
 export const getJobList = (data) => {
   return axios.request({
-    url: '/api/Job/JobList',
+    url: '/api/H5/H5JobList',
     data,
     method: 'post'
   })

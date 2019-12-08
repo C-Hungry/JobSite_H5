@@ -15,9 +15,18 @@ export default [
     path: '/home',
     name: 'home',
     meta: {
-      title: '首页'
+      title: '首页',
+      keepAlive: true
     },
     component: () => import('@/view/home/home')
+  },
+  {
+    path: '/search',
+    name: 'search',
+    meta: {
+      title: '搜索'
+    },
+    component: () => import('@/view/search/search')
   },
   {
     path: '/mine',
@@ -26,6 +35,23 @@ export default [
       title: '我的'
     },
     component: () => import('@/view/mine/mine')
+  },
+  {
+    path: '/jobList',
+    name: 'jobList',
+    meta: {
+      title: '岗位列表'
+    },
+    component: () => import('@/view/job/jobList')
+  },
+  {
+    path: '/jobDetail',
+    name: 'jobDetail',
+    meta: {
+      title: '岗位详情',
+      hideFooter: true
+    },
+    component: () => import('@/view/job/jobDetail')
   },
   {
     path: '/401',

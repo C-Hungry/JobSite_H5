@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import i18n from '@/locale'
+// import i18n from '@/locale'
 import config from '@/config'
 import importDirective from '@/directive'
 import FastClick from 'fastclick'
@@ -49,7 +49,7 @@ if ('addEventListener' in document) {
 new Vue({
   el: '#app',
   router,
-  i18n,
+  // i18n,
   store,
   render: h => h(App)
 })
