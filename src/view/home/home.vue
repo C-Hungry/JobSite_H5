@@ -190,6 +190,11 @@ export default {
   methods: {
     getH5IndexData() {
       this.isLoading = true;
+      this.$toast.loading({
+        duration: 0,
+        message: '加载中...',
+        forbidClick: true
+      })
       getH5IndexData()
         .then(res => {
           this.homeData = res;
@@ -201,6 +206,7 @@ export default {
           }
         })
         .finally(() => {
+          this.$toast.clear();
           this.isLoading = false;
         });
     },

@@ -8,7 +8,7 @@
         <div>张三</div>
         <div>13201597129</div>
       </div> -->
-      <div class="right">未登录</div>
+      <div class="right" @click="login">未登录</div>
     </div>
     <div>
       <van-cell-group>
@@ -23,19 +23,42 @@
 </template>
 
 <script>
+import URI from '@/libs/uri';
+import { wxLogin } from "@/api/home";
 export default {
   name: 'mine',
   data () {
     return {
       info: {
         avatar: ""
-      }
+      },
+      code: ""
     }
   },
   methods: {
     apply() {
       this.$toast('功能开发中...');
+    },
+    login() {
+      // const redirect_uri = encodeURIComponent(window.wxConfig.redirect_uri +
+      //     `/wxLogin.html?clubSN=${clubSN}&partnerSN=${partnerSN}#/`);
+      let appId = 'wx0e88ca5bb6a2a776';
+      let redirect_uri = encodeURIComponent(location.href);
+      location.href= `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+    },
+    getUserInfo() {
+      wxLogin({Code: this.code, InviteCode: '102233'}).then(res => {
+        console.log(res)
+      })
     }
+  },
+  mounted() {
+    let code = URI.query.get('code');
+    if (code) {
+      this.code = code;
+      this.getUserInfo();
+    }
+    console.log(code)
   }
 }
 </script>
@@ -50,6 +73,7 @@ export default {
   .left {
     width: 100px;
     margin: 10px;
+    margin-right: 0px;
   }
   .right {
     font-size: 16px;

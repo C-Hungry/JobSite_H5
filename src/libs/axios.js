@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import store from '@/store'
 import router from '@/router'
-// import { Notice } from 'iview'
+import { Toast } from 'Vant'
 import { getToken } from '@/libs/util'
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 // import { Spin } from 'iview'
@@ -36,7 +36,7 @@ class HttpRequest {
       }
       this.queue[url] = true
       if (config.data) {
-        config.data.token = getToken()
+        config.data.token = getToken() || ''
       }
       if (config.method === 'post') {
         config.data = qs.stringify(config.data)
@@ -52,28 +52,24 @@ class HttpRequest {
       if (data.ResponseID == 0) {
         return data.Data
       } else if (data.ResponseID == 1) {
-        Notice.error({
-          title: data.Message || '网络请求出错，请登录重试'
-        })
-        if (data.Message == '登录失败') {
-          store.dispatch('handleLogOut').then(() => {
-            router.push({
-              name: 'login'
-            })
-          })
-        }
+        Toast(data.Message || '网络请求出错，请登录重试');
+        // if (data.Message == '登录失败') {
+        //   store.dispatch('handleLogOut').then(() => {
+        //     router.push({
+        //       name: 'login'
+        //     })
+        //   })
+        // }
         return Promise.reject(data)
       } else {
-        Notice.error({
-          title: data.Message || '网络请求出错，请登录重试'
-        })
-        if (data.Message == '登录失败') {
-          store.dispatch('handleLogOut').then(() => {
-            router.push({
-              name: 'login'
-            })
-          })
-        }
+        Toast(data.Message || '网络请求出错，请登录重试');
+        // if (data.Message == '登录失败') {
+        //   store.dispatch('handleLogOut').then(() => {
+        //     router.push({
+        //       name: 'login'
+        //     })
+        //   })
+        // }
         return Promise.reject(data)
       }
     }, error => {
