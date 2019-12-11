@@ -24,7 +24,7 @@
 
 <script>
 import URI from '@/libs/uri';
-import { wxLogin } from "@/api/home";
+import { wxLogin } from "@/api/user";
 export default {
   name: 'mine',
   data () {
@@ -40,8 +40,6 @@ export default {
       this.$toast('功能开发中...');
     },
     login() {
-      // const redirect_uri = encodeURIComponent(window.wxConfig.redirect_uri +
-      //     `/wxLogin.html?clubSN=${clubSN}&partnerSN=${partnerSN}#/`);
       let appId = 'wx0e88ca5bb6a2a776';
       let redirect_uri = encodeURIComponent(location.href);
       location.href= `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`

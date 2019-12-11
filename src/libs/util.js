@@ -42,64 +42,6 @@ export const hasChild = (item) => {
   return item.children && item.children.length !== 0
 }
 
-const showThisMenuEle = (item, access) => {
-  if (item.meta && item.meta.access && item.meta.access.length) {
-    if (hasOneOf(item.meta.access, access)) return true
-    else return false
-  } else return true
-}
-/**
- * @param {Array} list 通过路由列表得到菜单列表
- * @returns {Array}
- */
-export const getMenuByRouter = (list, access) => {
-  let res = []
-  forEach(list, item => {
-    if (!item.meta || (item.meta && !item.meta.hideInMenu)) {
-      let obj = {
-        icon: (item.meta && item.meta.icon) || '',
-        name: item.name,
-        meta: item.meta
-      }
-      if ((hasChild(item) || (item.meta && item.meta.showAlways)) && showThisMenuEle(item, access)) {
-        obj.children = getMenuByRouter(item.children, access)
-      }
-      if (item.meta && item.meta.href) obj.href = item.meta.href
-      if (showThisMenuEle(item, access)) res.push(obj)
-    }
-  })
-  return res
-}
-
-/**
- * @param {Array} routeMetched 当前路由metched
- * @returns {Array}
- */
-export const getBreadCrumbList = (route, homeRoute) => {
-  let homeItem = { ...homeRoute, icon: homeRoute.meta.icon }
-  let routeMetched = route.matched
-  if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
-  let res = routeMetched.filter(item => {
-    return item.meta === undefined || !item.meta.hideInBread
-  }).map(item => {
-    let meta = { ...item.meta }
-    if (meta.title && typeof meta.title === 'function') {
-      meta.__titleIsFunction__ = true
-      meta.title = meta.title(route)
-    }
-    let obj = {
-      icon: (item.meta && item.meta.icon) || '',
-      name: item.name,
-      meta: meta
-    }
-    return obj
-  })
-  res = res.filter(item => {
-    return !item.meta.hideInMenu
-  })
-  return [{ ...homeItem, to: homeRoute.path }, ...res]
-}
-
 export const getRouteTitleHandled = (route) => {
   let router = { ...route }
   let meta = { ...route.meta }
@@ -352,60 +294,12 @@ export const routeEqual = (route1, route2) => {
   return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2)
 }
 
-/**
- * 判断打开的标签列表里是否已存在这个新添加的路由对象
- */
-export const routeHasExist = (tagNavList, routeItem) => {
-  let len = tagNavList.length
-  let res = false
-  doCustomTimes(len, (index) => {
-    if (routeEqual(tagNavList[index], routeItem)) res = true
-  })
-  return res
-}
-
 export const localSave = (key, value) => {
   localStorage.setItem(key, value)
 }
 
 export const localRead = (key) => {
   return localStorage.getItem(key) || ''
-}
-
-// scrollTop animation
-export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
-  if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-        return window.setTimeout(callback, 1000 / 60)
-      }
-    )
-  }
-  const difference = Math.abs(from - to)
-  const step = Math.ceil(difference / duration * 50)
-
-  const scroll = (start, end, step) => {
-    if (start === end) {
-      endCallback && endCallback()
-      return
-    }
-
-    let d = (start + step > end) ? end : start + step
-    if (start > end) {
-      d = (start - step < end) ? end : start - step
-    }
-
-    if (el === window) {
-      window.scrollTo(d, d)
-    } else {
-      el.scrollTop = d
-    }
-    window.requestAnimationFrame(() => scroll(d, end, step))
-  }
-  scroll(from, to, step)
 }
 
 /**

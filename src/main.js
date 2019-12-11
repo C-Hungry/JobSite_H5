@@ -6,7 +6,6 @@ import router from './router'
 import store from './store'
 // import i18n from '@/locale'
 import config from '@/config'
-import importDirective from '@/directive'
 import FastClick from 'fastclick'
 import 'normalize.css/normalize.css'
 import 'lib-flexible/flexible.js'
@@ -30,10 +29,6 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
-/**
- * 注册指令
- */
-importDirective(Vue)
 
 if ('addEventListener' in document) {
   document.addEventListener(

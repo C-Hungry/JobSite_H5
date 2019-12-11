@@ -1,4 +1,4 @@
-import { login } from '@/api/user'
+import { wxLogin } from '@/api/user'
 import { setToken, getToken, setAccess, getAccess, setUserName, getUserName } from '@/libs/util'
 
 export default {

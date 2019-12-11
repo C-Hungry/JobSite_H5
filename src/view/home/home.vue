@@ -160,7 +160,8 @@
 </template>
 
 <script>
-import { getH5IndexData, getJobList } from "@/api/home";
+import { getH5IndexData } from "@/api/home";
+import { getJobList } from "@/api/job";
 export default {
   name: "home",
   data() {

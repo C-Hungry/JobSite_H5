@@ -7,7 +7,7 @@
     </van-swipe>
     <div class="p10 card">
       <div class="f16">{{jobInfo.Title}}</div>
-      <div class="f16">
+      <div class="f16" v-if="jobInfo.KeyWords">
         <van-tag
           round
           color="#c8c8c8"
@@ -44,14 +44,6 @@
       <div class="f14 fb title">公司介绍</div>
       <div class="lh100" v-html="jobInfo.CompanyDesc"></div>
     </div>
-    <div class="p10 card">
-      <div class="f14 fb title">岗位介绍</div>
-      <div class="lh100" v-html="jobInfo.JobDesc"></div>
-    </div>
-    <div class="p10 card">
-      <div class="f14 fb title">岗位介绍</div>
-      <div class="lh100" v-html="jobInfo.JobDesc"></div>
-    </div>
     <div class="footer-bar" @click="apply">
       <div><span class="money">{{jobInfo.SalaryByFactory}}元/小时</span></div>
       <div>马上报名</div>
@@ -60,7 +52,7 @@
 </template>
 
 <script>
-import { getH5JobInfo } from "@/api/home";
+import { getH5JobInfo } from "@/api/job";
 export default {
   name: "",
   data() {

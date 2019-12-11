@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { getJobList } from "@/api/home";
+import { getJobList } from "@/api/job";
 export default {
   name: "home",
   data() {
@@ -65,8 +65,7 @@ export default {
         KeyWords: "",
         Keys: "",
         SortType: 1//1时间 2推荐 3热度
-      },
-      banner: require('../../assets/images/bind-mobile-banner-baozhang.png')
+      }
     };
   },
   methods: {
