@@ -18,11 +18,10 @@
         >{{item}}</van-tag>
       </div>
       <div class="mb10">
-        厂发薪资：<span class="money">{{jobInfo.SalaryByFactory}}</span>元/小时
+        厂发薪资：
+        <span class="money">{{jobInfo.SalaryByFactory}}</span>元/小时
       </div>
-      <div>
-        面试地址：{{jobInfo.CompanyAddress}}
-      </div>
+      <div>面试地址：{{jobInfo.CompanyAddress}}</div>
     </div>
     <div class="p10 card">
       <div class="f14 fb title">平台补贴</div>
@@ -45,22 +44,26 @@
       <div class="lh100" v-html="jobInfo.CompanyDesc"></div>
     </div>
     <div class="footer-bar" @click="apply">
-      <div><span class="money">{{jobInfo.SalaryByFactory}}元/小时</span></div>
+      <div>
+        <span class="money">{{jobInfo.SalaryByFactory}}元/小时</span>
+      </div>
       <div>马上报名</div>
     </div>
   </div>
 </template>
 
 <script>
-import { getH5JobInfo } from "@/api/job";
+import { getH5JobInfo, applyJob } from "@/api/job";
 export default {
   name: "",
   data() {
     return {
+      loading: false,
       jobInfo: {}
     };
   },
   methods: {
+    // 获取详情
     getH5JobInfo() {
       getH5JobInfo({ Id: this.$route.query.id })
         .then(res => {
@@ -70,8 +73,19 @@ export default {
 
         });
     },
+    // 报名
     apply() {
-      
+      this.$toast.loading({
+        message: '报名中...',
+        forbidClick: true
+      });
+      applyJob({ Id: this.$route.query.id })
+        .then(res => {
+          
+        })
+        .finally(() => {
+          this.$toast.clear();
+        });
     }
   },
   created() {
@@ -87,7 +101,7 @@ export default {
 }
 .money {
   display: inline-block;
-  margin-right: 3px; 
+  margin-right: 3px;
   font-size: 16px;
   font-weight: bold;
   color: #fd9f2d;
@@ -103,10 +117,10 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #0795EB;
+  background: #0795eb;
   font-size: 16px;
   color: #ffffff;
   padding-top: 8px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 </style>

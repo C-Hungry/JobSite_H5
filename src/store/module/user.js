@@ -57,8 +57,8 @@ export default {
     // 推出清空用户信息
     handleLogOut({ commit }) {
       commit('setToken', "")
-      commit('setUserName', data.NickName)
-      commit('setUserInfo', data)
+      commit('setUserName', "")
+      commit('setUserInfo', null)
     }
   }
 }

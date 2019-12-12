@@ -26,3 +26,12 @@ export const getH5JobInfo = (data) => {
     method: 'post'
   })
 }
+
+// 岗位报名
+export const applyJob = (data) => {
+  return axios.request({
+    url: '/api/H5/JobSignUp',
+    data,
+    method: 'post'
+  })
+}
