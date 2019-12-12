@@ -29,6 +29,15 @@ export default [
     component: () => import('@/view/mine/mine')
   },
   {
+    path: '/bindPhone',
+    name: 'bindPhone',
+    meta: {
+      title: '绑定手机号',
+      // hideFooter: true
+    },
+    component: () => import('@/view/mine/bindPhone')
+  },
+  {
     path: '/jobList',
     name: 'jobList',
     meta: {

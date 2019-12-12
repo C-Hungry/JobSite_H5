@@ -1,10 +1,10 @@
 import { wxLogin } from '@/api/user'
-import { setToken, getToken, setAccess, getAccess, setUserName, getUserName } from '@/libs/util'
+import { setToken, getToken, setAccess, getAccess, setUserName, getUserName, setUserInfo, getUserInfo } from '@/libs/util'
 
 export default {
   state: {
     userName: getUserName(),
-    userId: '',
+    userInfo: getUserInfo(),
     token: getToken(),
     access: getAccess()
   },
@@ -14,12 +14,13 @@ export default {
     }
   },
   mutations: {
-    setUserId (state, id) {
-      state.userId = id
-    },
     setUserName (state, name) {
       state.userName = name
       setUserName(name)
+    },
+    setUserInfo (state, userInfo) {
+      state.userInfo = userInfo
+      setUserName(userInfo)
     },
     setToken (state, token) {
       state.token = token
@@ -31,29 +32,33 @@ export default {
     }
   },
   actions: {
-    // 登录
-    handleLogin ({ commit }, { userName, password }) {
-      userName = userName.trim()
+    // 微信授权
+    handleWeChatAuth ({ commit }, { inviteCode }) {
+      let appId = 'wx0e88ca5bb6a2a776';
+      let redirect_uri = encodeURIComponent(location.href);
+      location.href= `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${inviteCode}#wechat_redirect`
+    },
+    // 微信登录
+    handleWeChatLogin ({ commit }, { code, inviteCode }) {
       return new Promise((resolve, reject) => {
-        login({
-          userName,
-          password
+        wxLogin({
+          Code: code,
+          InviteCode: inviteCode
         }).then(data => {
           commit('setToken', data.token)
-          commit('setUserName', data.UserName)
-          commit('setAccess', data.IsAdmin ? 'admin' : '')
+          commit('setUserName', data.NickName)
+          commit('setUserInfo', data)
           resolve()
         }).catch(err => {
           reject(err)
         })
       })
     },
-    // 退出登录
-    handleLogOut ({ state, commit }) {
-      return new Promise((resolve, reject) => {
-        commit('setToken', '')
-        resolve()
-      })
+    // 推出清空用户信息
+    handleLogOut({ commit }) {
+      commit('setToken', "")
+      commit('setUserName', data.NickName)
+      commit('setUserInfo', data)
     }
   }
 }

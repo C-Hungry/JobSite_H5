@@ -71,7 +71,7 @@ export default {
         });
     },
     apply() {
-      this.$toast('功能开发中...');
+      
     }
   },
   created() {

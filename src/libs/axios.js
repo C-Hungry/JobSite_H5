@@ -5,7 +5,6 @@ import router from '@/router'
 import { Toast } from 'Vant'
 import { getToken } from '@/libs/util'
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-// import { Spin } from 'iview'
 
 class HttpRequest {
   constructor (baseUrl = baseURL) {
@@ -24,7 +23,6 @@ class HttpRequest {
   destroy (url) {
     delete this.queue[url]
     if (!Object.keys(this.queue).length) {
-      // Spin.hide()
     }
   }
   interceptors (instance, url) {
@@ -53,23 +51,19 @@ class HttpRequest {
         return data.Data
       } else if (data.ResponseID == 1) {
         Toast(data.Message || '网络请求出错，请登录重试');
-        // if (data.Message == '登录失败') {
-        //   store.dispatch('handleLogOut').then(() => {
-        //     router.push({
-        //       name: 'login'
-        //     })
-        //   })
-        // }
+        store.dispatch('handleLogOut').then(() => {
+          router.push({
+            name: 'mine'
+          })
+        })
         return Promise.reject(data)
       } else {
         Toast(data.Message || '网络请求出错，请登录重试');
-        // if (data.Message == '登录失败') {
-        //   store.dispatch('handleLogOut').then(() => {
-        //     router.push({
-        //       name: 'login'
-        //     })
-        //   })
-        // }
+        store.dispatch('handleLogOut').then(() => {
+          router.push({
+            name: 'mine'
+          })
+        })
         return Promise.reject(data)
       }
     }, error => {

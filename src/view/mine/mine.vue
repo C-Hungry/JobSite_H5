@@ -2,13 +2,13 @@
   <div style="background: #eee;" class="pt5">
     <div class="info">
       <div class="left">
-        <van-image width="80" height="80" fit="cover" round :src="info.avatar"></van-image>
+        <van-image width="80" height="80" fit="cover" round :src="userInfo.HeadImage"></van-image>
       </div>
-      <!-- <div class="right">
-        <div>张三</div>
-        <div>13201597129</div>
-      </div> -->
-      <div class="right" @click="login">未登录</div>
+      <div class="right" v-if="userInfo.NickName">
+        <div>{{userInfo.NickName}}</div>
+        <!-- <div>{{userInfo.Phone || '-'}}</div> -->
+      </div>
+      <div v-else class="right" @click="login">未登录</div>
     </div>
     <div>
       <van-cell-group>
@@ -29,10 +29,8 @@ export default {
   name: 'mine',
   data () {
     return {
-      info: {
-        avatar: ""
-      },
-      code: ""
+      code: "",
+      inviteCode: ""
     }
   },
   methods: {
@@ -40,23 +38,32 @@ export default {
       this.$toast('功能开发中...');
     },
     login() {
-      let appId = 'wx0e88ca5bb6a2a776';
-      let redirect_uri = encodeURIComponent(location.href);
-      location.href= `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+      this.$store.dispatch('handleWeChatAuth', {inviteCode: this.inviteCode});
     },
-    getUserInfo() {
-      wxLogin({Code: this.code, InviteCode: '102233'}).then(res => {
-        console.log(res)
+    getWxUserInfo() {
+      this.$store.dispatch('handleWeChatLogin', {code: this.code, inviteCode: this.inviteCode}).then(res=> {
+        this.$router.push({
+          name: 'bindPhone'
+        })
       })
     }
   },
-  mounted() {
-    let code = URI.query.get('code');
-    if (code) {
-      this.code = code;
-      this.getUserInfo();
+  computed: {
+    userInfo() {
+      return this.$store.state.user.userInfo
     }
-    console.log(code)
+  },
+  mounted() {
+    this.code = URI.query.get('code') || '';
+    this.inviteCode = URI.query.get('inviteCode') || '';
+    if (!this.userInfo && this.code) {
+      this.getWxUserInfo()
+      return
+    }
+    if (!this.userInfo && !this.code) {
+      this.login();
+      return
+    }
   }
 }
 </script>
