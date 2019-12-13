@@ -64,6 +64,7 @@ export default {
       this.login();
       return
     }
+    this.$store.dispatch('handleAuthPhone')
   }
 }
 </script>

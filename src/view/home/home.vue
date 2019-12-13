@@ -17,7 +17,7 @@
         </van-swipe>
       </div>
       <van-notice-bar
-        text="李**刚才报名了无锡岗位，刘*刚才报名了昆山岗位，王**刚才报名了郑州岗位，张**刚才报名了郑州岗位，张*刚才报名了深圳岗位，刘*刚才报名了昆山岗位"
+        :text="homeData.Tips"
         left-icon="volume-o"
       />
       <van-grid :gutter="10" :column-num="4" :border="false" class="mt5">
@@ -128,18 +128,12 @@
       <div class="mt10 mb10" v-if="homeData.CenterBanners && homeData.CenterBanners[0]">
         <van-image fit="contain" :src="homeData.CenterBanners[0]" />
       </div>
-      <van-list
-        :immediate-check="false"
-        :loading="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        :offset="60"
-        @load="getJobList"
-      >
+      <!-- 其他岗位 -->
+      <template v-if="homeData.OtherJobs.length > 0">
         <ul class="job-list">
-          <li class="job-item" @click="toJobDetail(item)" v-for="(item, index) in jobList" :key="index">
+          <li class="job-item" @click="toJobDetail(item)" v-for="(item, index) in homeData.OtherJobs" :key="index">
             <div class="job-image mr10">
-              <van-image width="80" height="60" fit="cover" :src="item.Images[0]"></van-image>
+              <van-image width="80" height="60" fit="cover" :src="item.MainImage"></van-image>
             </div>
             <div class="job-info">
               <div class="title te-1">{{item.Title}}</div>
@@ -154,7 +148,7 @@
             </div>
           </li>
         </ul>
-      </van-list>
+      </template>
     </van-pull-refresh>
   </div>
 </template>
@@ -174,7 +168,9 @@ export default {
         HotJobs: [],
         NavigateIcons: [],
         RecommendJobs: [],
-        TopBanners: []
+        TopBanners: [],
+        OtherJobs: [],
+        Tips: ''
       },
       jobList: [],
       jobParam: {
@@ -205,6 +201,19 @@ export default {
               item.MainImage = images[0] || "";
             });
           }
+          if (this.homeData.RecommendJobs && this.homeData.RecommendJobs.length) {
+            this.homeData.RecommendJobs.map(item => {
+              let images = item.Images && JSON.parse(item.Images) || [];
+              item.MainImage = images[0] || "";
+            });
+          }
+          if (this.homeData.OtherJobs && this.homeData.OtherJobs.length) {
+            this.homeData.OtherJobs.map(item => {
+              let images = item.Images && JSON.parse(item.Images) || [];
+              item.MainImage = images[0] || "";
+            });
+          }
+          this.homeData.Tips = '李**刚才报名了无锡岗位，刘*刚才报名了昆山岗位，王**刚才报名了郑州岗位，张**刚才报名了郑州岗位，张*刚才报名了深圳岗位，刘*刚才报名了昆山岗位'
         })
         .finally(() => {
           this.$toast.clear();

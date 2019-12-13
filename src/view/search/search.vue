@@ -53,8 +53,7 @@ export default {
       this.$router.push({
         path: 'jobList',
         query: {
-          // keywords: keywords
-          keywords: this.keyword
+          keys: this.keyword
         }
       })
     },

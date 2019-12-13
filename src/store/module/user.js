@@ -1,4 +1,7 @@
 import { wxLogin } from '@/api/user'
+import router from '@/router'
+import { Dialog } from 'vant'
+import config from '@/config'
 import { setToken, getToken, setAccess, getAccess, setUserName, getUserName, setUserInfo, getUserInfo } from '@/libs/util'
 
 export default {
@@ -34,7 +37,7 @@ export default {
   actions: {
     // 微信授权
     handleWeChatAuth ({ commit }, { inviteCode }) {
-      let appId = 'wx0e88ca5bb6a2a776';
+      let appId = process.env.NODE_ENV === 'development' ? config.appId.dev : config.appId.pro;
       let redirect_uri = encodeURIComponent(location.href);
       location.href= `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${inviteCode}#wechat_redirect`
     },
@@ -59,6 +62,21 @@ export default {
       commit('setToken', "")
       commit('setUserName', "")
       commit('setUserInfo', null)
-    }
+    },
+    // 验证是否绑定手机号码
+    handleAuthPhone({state, commit}) {
+      if (state.userInfo && !state.userInfo.Phone) {
+        Dialog.alert({
+          title: '温馨提示',
+          message: '请先绑定手机号码',
+          confirmButtonText: '立即绑定',
+          closeOnPopstate: false
+        }).then(() => {
+          router.push({
+            name: 'bindPhone'
+          })
+        });
+      }
+    },
   }
 }

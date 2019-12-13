@@ -24,4 +24,12 @@ export default {
    * @description 默认打开的首页的路由name值，默认为home
    */
   homeName: 'home',
+  /**
+   * @description 默认打开的首页的路由name值，默认为home
+   */
+  appId: {
+    dev: 'wx0e88ca5bb6a2a776',
+    pro: 'wx0e88ca5bb6a2a776'
+    // wx5f76a4976100a3ea
+  }
 }

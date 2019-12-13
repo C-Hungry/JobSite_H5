@@ -3,7 +3,7 @@
     <van-sticky :offset-top="0">
       <van-search
         class="ml5 mr10"
-        v-model="jobParam.KeyWords"
+        v-model="jobParam.Keys"
         placeholder="请输入搜索关键词"
         show-action
         shape="round"
