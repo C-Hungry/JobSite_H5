@@ -54,16 +54,16 @@ export default {
     }
   },
   mounted() {
-    this.code = URI.query.get('code') || '';
-    this.inviteCode = URI.query.get('inviteCode') || '';
-    if (!this.userInfo && this.code) {
-      this.getWxUserInfo()
-      return
-    }
-    if (!this.userInfo && !this.code) {
-      this.login();
-      return
-    }
+    // this.code = URI.query.get('code') || '';
+    // this.inviteCode = URI.query.get('inviteCode') || '';
+    // if (!this.userInfo && this.code) {
+    //   this.getWxUserInfo()
+    //   return
+    // }
+    // if (!this.userInfo && !this.code) {
+    //   this.login();
+    //   return
+    // }
     this.$store.dispatch('handleAuthPhone')
   }
 }

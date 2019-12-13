@@ -66,16 +66,19 @@ export default {
     // 验证是否绑定手机号码
     handleAuthPhone({state, commit}) {
       if (state.userInfo && !state.userInfo.Phone) {
-        Dialog.alert({
-          title: '温馨提示',
-          message: '请先绑定手机号码',
-          confirmButtonText: '立即绑定',
-          closeOnPopstate: false
-        }).then(() => {
-          router.push({
-            name: 'bindPhone'
-          })
-        });
+        router.push({
+          name: 'bindPhone'
+        })
+        // Dialog.alert({
+        //   title: '温馨提示',
+        //   message: '请先绑定手机号码',
+        //   confirmButtonText: '立即绑定',
+        //   closeOnPopstate: false
+        // }).then(() => {
+        //   router.push({
+        //     name: 'bindPhone'
+        //   })
+        // });
       }
     },
   }
