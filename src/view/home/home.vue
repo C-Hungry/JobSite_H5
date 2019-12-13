@@ -161,8 +161,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      loading: false,
-      finished: false,
       homeData: {
         CenterBanners: [],
         HotJobs: [],
@@ -220,23 +218,6 @@ export default {
           this.isLoading = false;
         });
     },
-    getJobList() {
-      if (this.finished) return;
-      this.loading = true;
-      getJobList(this.jobParam)
-        .then(res => {
-          if (!this.finished) {
-            this.jobList = this.jobList.concat(res.Data);
-          }
-          if (this.jobList.length == res.TotalRows) {
-            this.finished = true;
-          }
-        })
-        .finally(() => {
-          this.jobParam.PageIndex++;
-          this.loading = false;
-        });
-    },
     toJobList(sortType) {
       this.$router.push({
         path: "/jobList",
@@ -261,7 +242,6 @@ export default {
   },
   created() {
     this.getH5IndexData();
-    this.getJobList();
   }
 };
 </script>
