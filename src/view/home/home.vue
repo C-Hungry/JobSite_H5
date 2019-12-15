@@ -147,6 +147,7 @@
               <div class="salary-hour">{{item.SalaryByFactory}}元/小时</div>
             </div>
           </li>
+          <li class="nodata">没有更多了</li>
         </ul>
       </template>
     </van-pull-refresh>
@@ -337,5 +338,11 @@ export default {
       }
     }
   }
+}
+.nodata {
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  color: #aab0c0;
 }
 </style>

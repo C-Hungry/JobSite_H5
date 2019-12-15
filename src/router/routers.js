@@ -53,5 +53,13 @@ export default [
       hideFooter: true
     },
     component: () => import('@/view/job/jobDetail')
+  },
+  {
+    path: '/improveUserInfo',
+    name: 'improveUserInfo',
+    meta: {
+      title: '完善资料'
+    },
+    component: () => import('@/view/mine/improveUserInfo')
   }
 ]

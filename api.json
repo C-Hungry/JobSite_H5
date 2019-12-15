@@ -725,7 +725,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"Code\":\"1234567878\"\n}"
+					"raw": "{\n\t\"Code\":\"1234567878\",\n\t\"InviteCode\":\"102233\"\n}"
 				},
 				"url": {
 					"raw": "{{url}}/api/H5/WechatLogin",
@@ -770,6 +770,486 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "绑定手机号",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Phone\":\"13253373178\",\n\t\"VerifyCode\":\"123456\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/BindPhone",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"BindPhone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "完善资料",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"RealName\":\"张无忌\",\n\t\"Degree\":1,//1初中2高中3大专4本科及以上,\n\t\"BirthDay\":\"1988-08-08\",\n\t\"Favorite\":\"看电视、看电影\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/ImproveUserInfo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"ImproveUserInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "绑定银行卡",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Id\":0,//0新增 非0修改\n\t\"IdCard\":\"41132811111111\",\n\t\"BankAccount\":\"6225464684312\",\n\t\"BankName\":\"中国银行\",\n\t\"Province\":\"河南省\",\n\t\"City\":\"郑州市\",\n\t\"AliPay\":\"123456@123.com\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/BindBankCard",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"BindBankCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的工作",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"PageIndex\":1,\n\t\"PageSize\":10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/MyJobs",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"MyJobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的推荐",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"PageIndex\":1,\n\t\"PageSize\":10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/InviteUsers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"InviteUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的咨询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"PageIndex\":1,\n\t\"PageSize\":10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/MyQuestions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"MyQuestions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发起咨询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Question\":\"真的工资这么好吗\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/QuestionAdd",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"QuestionAdd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "提现申请",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Money\":5\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/ApplyCashout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"ApplyCashout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "提现记录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"PageIndex\":1,\n\t\"PageSize\":15\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/CashOutList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"CashOutList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "微信用户列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Keys\":\"\",//昵称 姓名 电话号码\n\t\"PageIndex\":1,\n\t\"PageSize\":10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/WechatUserList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"WechatUserList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "微信用户导出",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Keys\":\"\"//昵称 姓名 电话号码\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/WechatUserListExport",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"WechatUserListExport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "咨询列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Keys\":\"\",//咨询内容\n\t\"PageIndex\":1,\n\t\"PageSize\":10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/QuestionList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"QuestionList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "回复咨询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Reply\":\"就是这么厉害\"//回复内容\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/QuestionReply",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"QuestionReply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "关闭咨询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Id\":1\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/QuestionClose",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"QuestionClose"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "提现申请列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Keys\":\"\",//昵称 手机号 姓名\n\t\"Status\":1,//0全部 1已申请2已打款3已拒绝\n\t\"PageIndex\":1,\n\t\"PageSize\":15\n\t}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/CashOutList",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"CashOutList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "确认已打款",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"Id\":1\n\t}"
+				},
+				"url": {
+					"raw": "{{url}}/api/User/CashOutConfirm",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"CashOutConfirm"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -796,13 +1276,13 @@
 	],
 	"variable": [
 		{
-			"id": "ffca0c89-f58f-420c-bbfb-b24bf0b140f6",
+			"id": "385d1a72-c4df-469c-943c-1a101fef79d8",
 			"key": "url",
 			"value": "http://192.168.1.234:600",
 			"type": "string"
 		},
 		{
-			"id": "7d5c0fa8-1094-404d-b327-0bd593519f50",
+			"id": "f7ff9dd0-c764-42f8-bbfa-43bccdaec061",
 			"key": "token",
 			"value": "7ea7f41087794f1292881f419810de30",
 			"type": "string"

@@ -14,6 +14,7 @@ import '@/assets/icons/iconfont.css'
 import Vant from 'vant'
 import { Lazyload } from 'vant'
 import 'vant/lib/index.css'
+import moment from 'moment'
 
 Vue.use(Vant);
 Vue.use(Lazyload);
@@ -29,6 +30,7 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
+Vue.prototype.$moment = moment
 
 if ('addEventListener' in document) {
   document.addEventListener(

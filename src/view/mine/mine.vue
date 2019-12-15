@@ -12,7 +12,7 @@
     </div>
     <div>
       <van-cell-group>
-        <van-cell @click="apply" icon="edit" title="完善资料" is-link />
+        <van-cell to="improveUserInfo" icon="edit" title="完善资料" is-link />
         <van-cell @click="apply" icon="balance-pay" title="我的钱包" is-link />
         <van-cell @click="apply" icon="good-job-o" title="我的推荐" is-link />
         <van-cell @click="apply" icon="phone-o" title="更换手机" is-link />
@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     this.code = URI.query.get('code') || '';
-    this.inviteCode = URI.query.get('inviteCode') || '';
+    this.inviteCode = URI.query.get('inviteCode') || '111111';
     if (!this.userInfo && this.code) {
       this.getWxUserInfo()
       return

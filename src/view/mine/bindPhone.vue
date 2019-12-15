@@ -4,26 +4,59 @@
     <div class="form">
       <div class="title">绑定手机号码</div>
       <van-cell-group class="mb20">
-        <van-field v-model="formData.Phone" clearable label="手机号码" placeholder="手机号码" />
-        <van-field v-model="formData.SMS" clearable label="短信验证码" placeholder="请输入短信验证码">
-          <van-button slot="button" size="small" color="#1585F5">发送验证码</van-button>
+        <van-field v-model="formData.Phone" clearable label="手机号码" placeholder="请输入手机号码" />
+        <van-field v-model="formData.VerifyCode" clearable label="短信验证码" placeholder="请输入短信验证码">
+          <van-button slot="button" @click="getVerifyCode" :disabled="timerNum > 0" size="small" color="#1585F5">{{timerNum > 0 ? `${timerNum}秒`:'发送验证码'}}</van-button>
         </van-field>
       </van-cell-group>
-      <van-button color="#1585F5" style="width: 100%;">确认绑定</van-button>
+      <van-button @click="bindPhone" color="#1585F5" style="width: 100%;">确认绑定</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import { bindPhone } from '@/api/user'
 export default {
   name: "",
   data() {
     return {
       formData: {
         Phone: "",
-        SMS: ""
-      }
+        VerifyCode: ""
+      },
+      timerNum: 0,
+      intervaler: null
     };
+  },
+  methods: {
+    getVerifyCode() {
+      this.timerNum = 60;
+      this.intervaler = setInterval(()=>{
+        this.timerNum--;
+        if (this.timerNum == 0) {
+          this.intervaler && clearInterval(this.intervaler)
+          this.intervaler = null;
+        }
+      }, 1000)
+    },
+    bindPhone() {
+      if (!this.formData.Phone) {
+        this.$toast('请输入手机号码');
+        return
+      }
+      if (!this.formData.VerifyCode) {
+        this.$toast('请输入短信验证码');
+        return
+      }
+      bindPhone(this.formData).then((res) => {
+        console.log(res)
+      }).finally(()=> {
+        
+      })
+    }
+  },
+  destroyed() {
+    this.intervaler && clearInterval(this.intervaler)
   }
 };
 </script>
