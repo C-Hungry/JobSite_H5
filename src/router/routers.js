@@ -61,5 +61,29 @@ export default [
       title: '完善资料'
     },
     component: () => import('@/view/mine/improveUserInfo')
+  },
+  {
+    path: '/bindBankCard',
+    name: 'bindBankCard',
+    meta: {
+      title: '绑定补贴卡'
+    },
+    component: () => import('@/view/mine/bindBankCard')
+  },
+  {
+    path: '/myConsult',
+    name: 'myConsult',
+    meta: {
+      title: '我的咨询'
+    },
+    component: () => import('@/view/mine/myConsult')
+  },
+  {
+    path: '/consult',
+    name: 'consult',
+    meta: {
+      title: '免费咨询'
+    },
+    component: () => import('@/view/mine/consult')
   }
 ]

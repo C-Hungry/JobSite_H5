@@ -3,12 +3,12 @@
     <div class="form">
       <div class="title">完善资料</div>
       <van-cell-group class="mb20">
-        <van-field v-model="formData.RealName" input-align="right" clearable label="真实姓名" placeholder="请输入真实姓名" />
-        <van-cell title="学历" @click="isShowDegreePopup=true" is-link value="请选择学历" />
-        <van-cell title="出生日期" @click="isShowBirthDayPopup=true" is-link value="请选择出生日期" />
-        <van-field v-model="formData.Favorite" input-align="right" clearable label="兴趣爱好" placeholder="请输入兴趣爱好" />
+        <van-field required v-model="formData.RealName" input-align="right" clearable label="真实姓名" placeholder="真实姓名" />
+        <van-cell required title="学历" @click="isShowDegreePopup=true" is-link :value="formData.DegreeText || '学历'" />
+        <van-cell required title="出生日期" @click="isShowBirthDayPopup=true" is-link :value="formData.BirthDay || '出生日期'" />
+        <van-field v-model="formData.Favorite" input-align="right" clearable label="兴趣爱好" placeholder="兴趣爱好" />
       </van-cell-group>
-      <van-button color="#1585F5" style="width: 100%;">提交</van-button>
+      <van-button color="#1585F5" style="width: 100%;" @click="improveUserInfo">提交</van-button>
     </div>
     <van-popup v-model="isShowDegreePopup" position="bottom">
       <van-picker
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { bindPhone } from '@/api/user'
+import { improveUserInfo } from '@/api/user'
 export default {
   name: "",
   data() {
@@ -39,6 +39,7 @@ export default {
         RealName: "",
         BirthDay: "",
         Degree: "",
+        DegreeText: "",
         Favorite: ""
       },
       columns: ['初中','高中','大专','本科及以上'], //1初中2高中3大专4本科及以上,
@@ -48,6 +49,7 @@ export default {
   },
   methods: {
     onDegreePopupConfirm(value) {
+      this.formData.DegreeText = value;
       this.formData.Degree = this.columns.indexOf(value) + 1;
       this.isShowDegreePopup = false;
     },
@@ -55,34 +57,31 @@ export default {
       this.formData.BirthDay = this.$moment(value).format('YYYY-MM-DD');
       this.isShowBirthDayPopup = false;
     },
-    getVerifyCode() {
-      this.timerNum = 5;
-      this.intervaler = setInterval(()=>{
-        this.timerNum--;
-        if (this.timerNum == 0) {
-          this.intervaler && clearInterval(this.intervaler)
-          this.intervaler = null;
-        }
-      }, 1000)
-    },
-    bindPhone() {
-      if (!this.formData.Phone) {
-        this.$toast('请输入手机号码');
+    improveUserInfo() {
+      if (!this.formData.RealName) {
+        this.$toast('请输入真实姓名');
         return
       }
-      if (!this.formData.VerifyCode) {
-        this.$toast('请输入短信验证码');
+      if (!this.formData.Degree) {
+        this.$toast('请选择学历');
         return
       }
-      bindPhone(this.formData).then((res) => {
-        console.log(res)
+      if (!this.formData.BirthDay) {
+        this.$toast('请选择出生日期');
+        return
+      }
+      this.$toast.loading({
+        message: '提交中...',
+        forbidClick: true,
+        duration: 0
+      });
+      improveUserInfo(this.formData).then((res) => {
+        this.$toast('提交成功')
+        this.$router.go(-1);
       }).finally(()=> {
-        
+        this.$toast.clear();
       })
     }
-  },
-  destroyed() {
-    this.intervaler && clearInterval(this.intervaler)
   }
 };
 </script>

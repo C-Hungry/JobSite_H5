@@ -21,7 +21,7 @@
         left-icon="volume-o"
       />
       <van-grid :gutter="10" :column-num="4" :border="false" class="mt5">
-        <van-grid-item class="tc" icon="photo-o">
+        <van-grid-item class="tc" icon="photo-o" @click="switchPath('consult')">
           <div slot="default">
             <van-image width="60" height="60" :src="homeData.NavigateIcons[0]"></van-image>
             <div>我的咨询</div>
@@ -151,14 +151,19 @@
         </ul>
       </template>
     </van-pull-refresh>
+    <bubble class="bubble" path="/consult">免费咨询</bubble>
   </div>
 </template>
 
 <script>
 import { getH5IndexData } from "@/api/home";
 import { getJobList } from "@/api/job";
+import bubble from '_c/bubble'
 export default {
   name: "home",
+  components: {
+    bubble
+  },
   data() {
     return {
       isLoading: false,
@@ -238,6 +243,11 @@ export default {
     toSearch() {
       this.$router.push({
         path: "/search"
+      });
+    },
+    switchPath(name) {
+      this.$router.push({
+        name: name
       });
     }
   },
