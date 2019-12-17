@@ -21,6 +21,7 @@
     <van-popup v-model="isShowBirthDayPopup" position="bottom">
       <van-datetime-picker
         type="date"
+        value
         @confirm="onBirthDayPopupConfirm"
         @cancel="isShowBirthDayPopup=false"
         :min-date="new Date(1950,0,1)"
@@ -81,6 +82,16 @@ export default {
       }).finally(()=> {
         this.$toast.clear();
       })
+    }
+  },
+  created() {
+    let userInfo = Object.assign({}, this.$store.state.user.userInfo);
+    this.formData = {
+      RealName:  userInfo.RealName || "",
+      BirthDay: (userInfo.BirthDay && this.$moment(userInfo.BirthDay).format('YYYY-MM-DD')) || "2000-01-01",
+      Degree: userInfo.Degree || "",
+      DegreeText: (userInfo.Degree && this.columns[userInfo.Degree-1]) || "",
+      Favorite: userInfo.Favorite || "",
     }
   }
 };

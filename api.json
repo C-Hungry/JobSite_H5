@@ -1042,6 +1042,36 @@
 			"response": []
 		},
 		{
+			"name": "获取用户信息--h5",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"3e4ad9932fbb4240b71404f69a06d997\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/GetUserInfo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"GetUserInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "微信用户列表",
 			"request": {
 				"method": "POST",
@@ -1276,13 +1306,13 @@
 	],
 	"variable": [
 		{
-			"id": "385d1a72-c4df-469c-943c-1a101fef79d8",
+			"id": "31b4724a-430f-426e-acbb-d0ef9e592319",
 			"key": "url",
 			"value": "http://192.168.1.234:600",
 			"type": "string"
 		},
 		{
-			"id": "f7ff9dd0-c764-42f8-bbfa-43bccdaec061",
+			"id": "9d217908-8df3-4331-a66f-938676485fb4",
 			"key": "token",
 			"value": "7ea7f41087794f1292881f419810de30",
 			"type": "string"

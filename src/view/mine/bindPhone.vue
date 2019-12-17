@@ -54,15 +54,15 @@ export default {
         duration: 0
       });
       bindPhone(this.formData).then((res) => {
-        this.$toast('提交成功')
-        let userInfo = this.$store.state.user.userInfo;
-        userInfo.Phone = this.formData.Phone;
-        this.$store.commit('setUserInfo', userInfo);
+        this.$toast('提交成功');
         this.$router.go(-1);
       }).finally(()=> {
         this.$toast.clear();
       })
     }
+  },
+  created() {
+    this.formData = this.$store.state.user.userInfo.Phone || "";
   },
   destroyed() {
     this.intervaler && clearInterval(this.intervaler)

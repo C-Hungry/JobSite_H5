@@ -1,51 +1,31 @@
-import Cookies from 'js-cookie'
-// cookie保存的天数
 import config from '@/config'
-const { title, cookieExpires, useI18n } = config
+const { title, useI18n } = config
 
 export const TOKEN_KEY = 'token'
-export const USERNAME_KEY = 'username'
-export const ACCESS_KEY = 'access'
 export const USERINFO_KEY = 'userinfo'
 
 export const setToken = (token) => {
-  Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 })
+  localStorage.setItem(TOKEN_KEY, token)
 }
 
 export const getToken = () => {
-  const token = Cookies.get(TOKEN_KEY)
+  const token = localStorage.getItem(TOKEN_KEY)
   if (token) return token
-  else return false
-}
-
-export const setUserName = (username) => {
-  Cookies.set(USERNAME_KEY, username, { expires: cookieExpires || 1 })
-}
-
-export const getUserName = () => {
-  const username = Cookies.get(USERNAME_KEY)
-  if (username) return username
-  else return false
+  else return ""
 }
 
 export const setUserInfo = (userinfo) => {
-  Cookies.set(USERINFO_KEY, userinfo, { expires: cookieExpires || 1 })
+  if (Object.prototype.toString.call(userinfo) === '[object Object]') {
+    localStorage.setItem(USERINFO_KEY, JSON.stringify(userinfo))
+  } else {
+    localStorage.setItem(USERINFO_KEY, userinfo)
+  }
 }
 
 export const getUserInfo = () => {
-  const userinfo = Cookies.get(USERINFO_KEY)
-  if (userinfo)  return JSON.parse(userinfo)
-  else return false
-}
-
-export const setAccess = (access) => {
-  Cookies.set(ACCESS_KEY, access, { expires: cookieExpires || 1 })
-}
-
-export const getAccess = () => {
-  const access = Cookies.get(ACCESS_KEY)
-  if (access) return access
-  else return false
+  const userinfo = localStorage.getItem(USERINFO_KEY)
+  if (userinfo) return JSON.parse(userinfo)
+  else return {}
 }
 
 export const hasChild = (item) => {

@@ -1,37 +1,20 @@
-import { wxLogin } from '@/api/user'
-import router from '@/router'
-import { Dialog } from 'vant'
+import { wxLogin, queryUserInfo } from '@/api/user'
 import config from '@/config'
-import { setToken, getToken, setAccess, getAccess, setUserName, getUserName, setUserInfo, getUserInfo } from '@/libs/util'
+import { setToken, getToken, setUserInfo, getUserInfo } from '@/libs/util'
 
 export default {
   state: {
-    userName: getUserName(),
     userInfo: getUserInfo(),
-    token: getToken(),
-    access: getAccess()
-  },
-  getters: {
-    isAdmin: state => {
-      return state.access == 'admin'
-    }
+    token: getToken()
   },
   mutations: {
-    setUserName (state, name) {
-      state.userName = name
-      setUserName(name)
-    },
     setUserInfo (state, userInfo) {
       state.userInfo = userInfo
-      setUserName(userInfo)
+      setUserInfo(userInfo)
     },
     setToken (state, token) {
       state.token = token
       setToken(token)
-    },
-    setAccess (state, access) {
-      state.access = access
-      setAccess(access)
     }
   },
   actions: {
@@ -49,7 +32,6 @@ export default {
           InviteCode: inviteCode
         }).then(data => {
           commit('setToken', data.token)
-          commit('setUserName', data.NickName)
           commit('setUserInfo', data)
           resolve()
         }).catch(err => {
@@ -57,29 +39,21 @@ export default {
         })
       })
     },
-    // 推出清空用户信息
+    // 获取用户信息
+    handleGetUserInfo ({ commit }) {
+      return new Promise((resolve, reject) => {
+        queryUserInfo().then(data => {
+          commit('setUserInfo', data)
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    // 退出清空用户信息
     handleLogOut({ commit }) {
       commit('setToken', "")
-      commit('setUserName', "")
       commit('setUserInfo', null)
-    },
-    // 验证是否绑定手机号码
-    handleAuthPhone({state, commit}) {
-      if (state.userInfo && !state.userInfo.Phone) {
-        router.push({
-          name: 'bindPhone'
-        })
-        // Dialog.alert({
-        //   title: '温馨提示',
-        //   message: '请先绑定手机号码',
-        //   confirmButtonText: '立即绑定',
-        //   closeOnPopstate: false
-        // }).then(() => {
-        //   router.push({
-        //     name: 'bindPhone'
-        //   })
-        // });
-      }
-    },
+    }
   }
 }

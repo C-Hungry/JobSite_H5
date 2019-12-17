@@ -26,6 +26,15 @@ export const improveUserInfo = (data) => {
   })
 }
 
+// 获取用户详情
+export const queryUserInfo = (data) => {
+  return axios.request({
+    url: '/api/H5/GetUserInfo',
+    data,
+    method: 'post'
+  })
+}
+
 // 绑定银行卡
 export const bindBankCard = (data) => {
   return axios.request({
