@@ -52,8 +52,11 @@ export default {
     },
     // 退出清空用户信息
     handleLogOut({ commit }) {
-      commit('setToken', "")
-      commit('setUserInfo', null)
+      return new Promise((resolve, reject) => {
+        commit('setToken', "")
+        commit('setUserInfo', null)
+        resolve()
+      })
     }
   }
 }

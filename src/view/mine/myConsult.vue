@@ -3,18 +3,23 @@
     <ul class="question-list" v-if="questionList.length > 0">
       <li class="question-item" v-for="(item, index) in questionList" :key="index">
         <div class="mb5">
-          <van-tag plain :type="item.Status == 0 ? 'primary' : 'danger'">
-            {{item.Status == 0 ? '已回复' : '未回复'}}
+          <van-tag plain :type="item.Status == 1 ? 'danger' : item.Status == 2 ? 'success' : 'default'">
+            {{item.Status == 1 ? '未回复' : item.Status == 2 ? '已回复' : '已关闭'}}
           </van-tag>
           <div class="datetime fr">{{item.DateAdded}}</div>
         </div>
         <div class="title mt15">
-         <span class="strong">提问：</span>{{item.Qusetion}}
+         <span class="strong">问题：</span>{{item.Qusetion}}
         </div>
-        <div class="replay" v-if="item.Status == 0">
+        <div class="replay" v-if="item.Status == 2">
           <van-divider></van-divider>
           <span class="strong">回复：</span>
           <span>{{item.Reply}}</span>
+        </div>
+        <div v-if="item.Status == 2">
+          <van-divider></van-divider>
+          <span>回复人：{{item.ReplyUserReal}}</span>
+          <span class="fr">{{item.ReplyDate && $moment(item.ReplyDate).format('YYYY-MM-DD HH:MM:SS')}}</span>
         </div>
       </li>
     </ul>
@@ -42,7 +47,6 @@ export default {
 	      "PageSize": 999
       }).then((res) => {
         this.questionList = res.Data;
-      }).finally(()=> {
         if (this.questionList.length == 0) {
           this.$router.replace('/consult');
         }
@@ -59,10 +63,11 @@ export default {
 .container {
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: 48px;
   left: 0;
   right: 0;
   background: #eee;
+  overflow-y: auto;
   //  background-image: url(../../assets/images/bind-phone-bg.jpg);
   //  background-size: 100% auto;
   .question-list {

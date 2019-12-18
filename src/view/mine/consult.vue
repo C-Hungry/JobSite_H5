@@ -9,7 +9,7 @@
           v-model="formData.Question"
           rows="4"
           autosize
-          label="留言"
+          label="问题"
           label-width="50px"
           type="textarea"
           maxlength="100"
