@@ -77,15 +77,16 @@ export default {
     apply() {
       this.$toast.loading({
         message: '报名中...',
-        forbidClick: true
+        forbidClick: true,
+        duration: 0
       });
       applyJob({ Id: this.$route.query.id })
         .then(res => {
-          
+          this.$toast.success({
+            message: '报名成功',
+            forbidClick: true
+          });
         })
-        .finally(() => {
-          this.$toast.clear();
-        });
     }
   },
   created() {
