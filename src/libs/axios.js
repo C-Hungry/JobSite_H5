@@ -52,19 +52,23 @@ class HttpRequest {
         return data.Data
       } else if (data.ResponseID == 1) {
         Toast(data.Message || '网络请求出错，请登录重试');
-        store.dispatch('handleLogOut').then(() => {
-          router.push({
-            name: 'mine'
+        if (data.Message == '登录失败') {
+          store.dispatch('handleLogOut').then(() => {
+            router.push({
+              name: 'mine'
+            })
           })
-        })
+        }
         return Promise.reject(data)
       } else {
         Toast(data.Message || '网络请求出错，请登录重试');
-        store.dispatch('handleLogOut').then(() => {
-          router.push({
-            name: 'mine'
+        if (data.Message == '登录失败') {
+          store.dispatch('handleLogOut').then(() => {
+            router.push({
+              name: 'mine'
+            })
           })
-        })
+        }
         return Promise.reject(data)
       }
     }, error => {

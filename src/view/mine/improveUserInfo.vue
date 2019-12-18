@@ -24,7 +24,7 @@
         value
         @confirm="onBirthDayPopupConfirm"
         @cancel="isShowBirthDayPopup=false"
-        :min-date="new Date(1950,0,1)"
+        :min-date="new Date(1970,0,1)"
       />
     </van-popup>
   </div>
@@ -79,8 +79,6 @@ export default {
       improveUserInfo(this.formData).then((res) => {
         this.$toast('提交成功')
         this.$router.go(-1);
-      }).finally(()=> {
-        this.$toast.clear();
       })
     }
   },

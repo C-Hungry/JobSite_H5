@@ -47,8 +47,6 @@ export default {
       questionAdd(this.formData).then((res) => {
         this.$toast('提交成功')
         this.$router.replace('/myConsult');
-      }).finally(()=> {
-        this.$toast.clear();
       })
     }
   }

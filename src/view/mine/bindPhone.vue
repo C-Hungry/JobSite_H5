@@ -56,8 +56,6 @@ export default {
       bindPhone(this.formData).then((res) => {
         this.$toast('提交成功');
         this.$router.go(-1);
-      }).finally(()=> {
-        this.$toast.clear();
       })
     }
   },

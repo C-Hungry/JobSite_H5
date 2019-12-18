@@ -15,6 +15,10 @@
       path: {
         type: String,
         default: ''
+      },
+      replace: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
@@ -23,9 +27,15 @@
           this.$toast('请绑定path')
           return
         }
-        this.$router.push({
-          path: this.path
-        })
+        if (this.replace) {
+          this.$router.replace({
+            path: this.path
+          })
+        } else {
+          this.$router.push({
+            path: this.path
+          })
+        }
       }
     }
   }

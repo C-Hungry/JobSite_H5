@@ -23,7 +23,6 @@
       <van-area
         :area-list="areaList"
         :columns-num="2"
-        :columns-placeholder="['请选择', '请选择', '请选择']"
         @cancel="isShowAreaPopup=false"
         @confirm="onAreaPopupConfirm"
       />
@@ -104,8 +103,6 @@ export default {
       bindBankCard(this.formData).then((res) => {
         this.$toast('提交成功')
         this.$router.go(-1);
-      }).finally(()=> {
-        this.$toast.clear();
       })
     }
   }
