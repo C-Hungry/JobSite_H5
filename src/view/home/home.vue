@@ -27,7 +27,7 @@
             <div>我的咨询</div>
           </div>
         </van-grid-item>
-        <van-grid-item class="tc" icon="photo-o">
+        <van-grid-item class="tc" icon="photo-o" @click="switchPath('myJobs')">
           <div slot="default">
             <van-image width="60" height="60" :src="homeData.NavigateIcons[1]"></van-image>
             <div>我的工作</div>

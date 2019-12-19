@@ -16,7 +16,7 @@
           <span class="strong">回复：</span>
           <span>{{item.Reply}}</span>
         </div>
-        <div v-if="item.Status == 2">
+        <div v-if="item.Status == 2" style="color: #aaa;">
           <van-divider></van-divider>
           <span>回复人：{{item.ReplyUserReal}}</span>
           <span class="fr">{{item.ReplyDate && $moment(item.ReplyDate).format('YYYY-MM-DD HH:MM:SS')}}</span>

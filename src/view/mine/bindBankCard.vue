@@ -105,7 +105,10 @@ export default {
         this.$router.go(-1);
       })
     }
-  }
+  },
+  created() {
+    // this.formData = this.$store.state.user.userInfo.Phone || "";
+  },
 };
 </script>
 

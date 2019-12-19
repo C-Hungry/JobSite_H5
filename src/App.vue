@@ -35,6 +35,7 @@ html,body{
   // overflow: auto;
   margin: 0;
   padding: 0;
+  color: #333;
 }
 #app {
   .size;

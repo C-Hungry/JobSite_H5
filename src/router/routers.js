@@ -85,5 +85,21 @@ export default [
       title: '免费咨询'
     },
     component: () => import('@/view/mine/consult')
+  },
+  {
+    path: '/myJobs',
+    name: 'myJobs',
+    meta: {
+      title: '我的工作'
+    },
+    component: () => import('@/view/mine/myJobs')
+  },
+  {
+    path: '/myWallet',
+    name: 'myWallet',
+    meta: {
+      title: '我的钱包'
+    },
+    component: () => import('@/view/mine/myWallet')
   }
 ]

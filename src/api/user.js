@@ -89,8 +89,8 @@ export const applyCashout = (data) => {
   })
 }
 
-// 发起咨询
-export const cashOutList = (data) => {
+// 提现记录
+export const getCashOutList = (data) => {
   return axios.request({
     url: '/api/H5/CashOutList',
     data,
