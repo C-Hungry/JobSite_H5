@@ -2,21 +2,22 @@
   <div class="container">
     <div class="wallet-header">
       <div class="mymoney">
-        <div class="mb10 f14">我的钱包</div>
+        <div class="mb10 f14"><van-icon class="vm mr5" style="margin-top: -5px;" name="balance-o" size="16"/>我的钱包</div>
         <div class="f16">￥{{$store.state.user.userInfo.Balance}}<span class="f12 ml5">元</span></div>
       </div>
-      <div class="record">提现记录</div>
+      <div class="record" @click="toCashOutRecord">提现记录</div>
     </div>
     <div class="balance-c">
-      <van-row>
-        <van-col class="balance" span="8">0.5元</van-col>
-        <van-col class="balance" span="8">5元</van-col>
-        <van-col class="balance" span="8">10元</van-col>
+      <div class="balance-title mb20">选择提现金额：</div>
+      <van-row type="flex" justify="space-between">
+        <van-col class="balance" @click="chooseMoney(0.5)" :class="{'balance-active': formData.Money == 0.5}" span="7">0.5元</van-col>
+        <van-col class="balance" @click="chooseMoney(5)" :class="{'balance-active': formData.Money == 5}" span="7">5元</van-col>
+        <van-col class="balance" @click="chooseMoney(20)" :class="{'balance-active': formData.Money == 20}" span="7">20元</van-col>
       </van-row>
-      <van-row>
-        <van-col class="balance" span="8">50元</van-col>
-        <van-col class="balance" span="8">100元</van-col>
-        <van-col class="balance" span="8">500元</van-col>
+      <van-row type="flex" justify="space-between">
+        <van-col class="balance" @click="chooseMoney(50)" :class="{'balance-active': formData.Money == 50}" span="7">50元</van-col>
+        <van-col class="balance" @click="chooseMoney(100)" :class="{'balance-active': formData.Money == 100}" span="7">100元</van-col>
+        <van-col class="balance" @click="chooseMoney(500)" :class="{'balance-active': formData.Money == 500}" span="7">500元</van-col>
       </van-row>
       <van-button @click="applyCashout" color="#1585F5" style="width: 100%;">提交</van-button>
     </div>
@@ -31,27 +32,21 @@ export default {
   data() {
     return {
       formData: {
-        Phone: "",
-        VerifyCode: ""
-      },
-      timerNum: 0,
-      intervaler: null
+        Money: 0
+      }
     };
   },
   methods: {
-    getVerifyCode() {
-      this.timerNum = 60;
-      this.intervaler = setInterval(() => {
-        this.timerNum--;
-        if (this.timerNum == 0) {
-          this.intervaler && clearInterval(this.intervaler);
-          this.intervaler = null;
-        }
-      }, 1000);
+    chooseMoney(money) {
+      if (this.formData.Money == money) {
+        this.formData.Money = 0;
+      } else {
+        this.formData.Money = money;
+      }
     },
     applyCashout() {
-      if (!this.formData.Phone) {
-        this.$toast("请输入手机号码");
+      if (!this.formData.Money) {
+        this.$toast("请选择提现金额");
         return;
       }
       this.$toast.loading({
@@ -59,10 +54,20 @@ export default {
         forbidClick: true,
         duration: 0
       });
-      bindPhone(this.formData).then(res => {
-        this.$toast("提交成功");
-        this.$router.go(-1);
+      applyCashout(this.formData).then(res => {
+        this.$toast.success({
+          message: "提交成功，请耐心等待处理",
+          forbidClick: true,
+          duration: 2000
+        });
+        this.formData.Money = 0;
+        this.$store.dispatch('handleGetUserInfo');
       });
+    },
+    toCashOutRecord() {
+      this.$router.push({
+        name: 'cashOutRecord'
+      })
     }
   }
 };
@@ -85,7 +90,7 @@ export default {
     color: #ffffff;
     display: flex;
     align-items: center;
-    padding: 0 30px;
+    padding: 0 25px;
     font-size: 14px;
     border-radius: 5px;
     .mymoney {
@@ -105,8 +110,22 @@ export default {
   .balance-c {
     margin: 10px;
     background-color: #ffffff;
-    padding: 10px;
+    padding: 25px;
     border-radius: 5px;
+    font-size: 14px;
+    .balance {
+      text-align: center;
+      height: 36px;
+      line-height: 36px;
+      border-radius: 18px; 
+      color: #1989fa;
+      border: 1px solid #1989fa;
+      margin-bottom: 20px;
+      &-active {
+        background-color: #1989fa;
+        color: #ffffff;
+      }
+    }
   }
 }
 </style>

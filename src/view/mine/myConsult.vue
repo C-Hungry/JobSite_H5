@@ -22,6 +22,7 @@
           <span class="fr">{{item.ReplyDate && $moment(item.ReplyDate).format('YYYY-MM-DD HH:MM:SS')}}</span>
         </div>
       </li>
+      <li class="nodata">没有更多了</li>
     </ul>
     <bubble class="bubble" path="/consult" replace>继续咨询</bubble>
   </div>

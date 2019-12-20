@@ -22,6 +22,7 @@
         </div>
         <img class="applied" src="../../assets/images/applied.png" alt="">
       </li>
+      <li class="nodata">没有更多了</li>
     </ul>
   </div>
 </template>

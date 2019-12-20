@@ -101,5 +101,13 @@ export default [
       title: '我的钱包'
     },
     component: () => import('@/view/mine/myWallet')
+  },
+  {
+    path: '/cashOutRecord',
+    name: 'cashOutRecord',
+    meta: {
+      title: '提现记录'
+    },
+    component: () => import('@/view/mine/cashOutRecord')
   }
 ]
