@@ -10,7 +10,7 @@
     props: {
       bottom: {
         type: Number,
-        default: 65
+        default: 80
       },
       path: {
         type: String,
@@ -48,12 +48,16 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 1px solid #1585F5;
-    background-color: #1585F5;
-    color: #ffffff;
+    border: 1px solid #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px #aaa;
+    color: #1585F5;
+    // border: 1px solid #1585F5;
+    // background-color: #1585F5;
+    // color: #ffffff;
     text-align: center;
-    line-height: 20px;
-    font-size: 16px;
+    line-height: 21px;
+    font-size: 15px;
     box-sizing: border-box;
     padding: 8px;
   }

@@ -109,5 +109,13 @@ export default [
       title: '提现记录'
     },
     component: () => import('@/view/mine/cashOutRecord')
-  }
+  },
+  {
+    path: '/myInvite',
+    name: 'myInvite',
+    meta: {
+      title: '我的推荐'
+    },
+    component: () => import('@/view/mine/myInvite')
+  },
 ]

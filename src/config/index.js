@@ -30,6 +30,7 @@ export default {
   appId: {
     dev: 'wx0e88ca5bb6a2a776',
     pro: 'wx0e88ca5bb6a2a776'
+    // wx0e88ca5bb6a2a776
     // wx5f76a4976100a3ea
   }
 }
