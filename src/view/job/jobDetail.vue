@@ -55,18 +55,47 @@
         <div class="f14" style="margin-top: 3px;">马上报名</div>
       </div>
     </div>
-    <van-popup v-model="isShowSharePopup" style="background: unset;width: 300px;height: 400px;">
-      <div ref="imageWrapper" id="poster" @click="productionImage">
-        <img style="width: 300px;" :src="shareBg2Base64" alt="">
-        <img class="poster-image" :src="shareMainImage2Base64" alt="">
-        <div class="poster-title">{{jobInfo.Title}}</div>
-        <div class="poster-detail">{{jobInfo.Title}}</div>
+    <van-popup v-model="isShowSharePopup" style="background: unset;width: 300px;height: 400px;overflow-y: unset;">
+      <img width="300px" :src="haibaoData" alt="">
+      <div class="tc" style="z-index: 10000;">
+        <div style="color: #ffffff;margin-bottom:3px;z-index: 10000;" class="f14">长按海报下载并分享</div>
+        <van-icon @click="isShowSharePopup=false" class="van-icon-me mt10" color="#eee" size="32" name="clear" />
       </div>
     </van-popup>
+    <div ref="imageWrapper" id="poster">
+        <img style="width: 300px;" :src="shareBg2Base64" alt="">
+        <div class="poster">
+          <div class="poster-info">
+            <img class="poster-image" :src="shareMainImage2Base64" alt="">
+            <div>
+              <div class="poster-title">{{jobInfo.Title}}</div>
+              <div class="poster-detail">工价：
+                <span class="money">{{jobInfo.SalaryByFactory}}</span>
+                <span class="unit">元/小时</span>
+              </div>
+            </div>
+          </div>
+          <div class="label" v-if="jobInfo.KeyWords">
+            <div
+              class="tag"
+              v-for="(item, index) in jobInfo.KeyWords.split(',')"
+              :key="index"
+              @click="onSearchByLabel(item)"
+            >{{item}}</div>
+          </div>
+          <div class="jod-desc" v-html="jobInfo.JobDesc"></div>
+        </div>
+        <div class="detail">
+          <div class="top">长按识别二维码</div>
+          <div>查看详情/去报名</div>
+        </div>
+        <img class="qr-img" :src="qrData" alt="">
+      </div>
   </div>
 </template>
 
 <script>
+var QRCode = require("qrcode");
 import { getH5JobInfo, applyJob } from "@/api/job";
 import html2canvas from "html2canvas";
 export default {
@@ -78,6 +107,8 @@ export default {
       shareBg: require('../../assets/images/share-bg.png'),
       shareBg2Base64: "",
       shareMainImage2Base64: "",
+      qrData: "",
+      haibaoData: "",
       jobInfo: {}
     };
   },
@@ -98,6 +129,13 @@ export default {
         .finally(() => {
           this.$toast.clear();
         });
+    },
+    // 生二维码
+    qr() {
+      let _this = this;
+      QRCode.toDataURL(location.href, function(err, url) {
+        _this.qrData = url;
+      });
     },
     // 报名
     apply() {
@@ -123,24 +161,28 @@ export default {
       const height = parseInt(window.getComputedStyle(canvasBox).height);
 
       // 宽高 * 2 并放大 2 倍 是为了防止图片模糊
-      canvas.width = width * 2;
-      canvas.height = height * 2;
+      canvas.width = width*2;
+      canvas.height = height*2;
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
-
       const context = canvas.getContext("2d");
-      context.scale(2, 2);
+      context.scale(0.75, 0.75);
 
       const options = {
         backgroundColor: null,
         canvas: canvas,
         useCORS: true
       };
-      html2canvas(canvasBox, options).then(canvas => {
+      setTimeout(() => {
+        html2canvas(canvasBox, options).then(canvas => {
         // toDataURL 图片格式转成 base64
-        let dataURL = canvas.toDataURL("image/png");
-        this.downloadImage(dataURL);
-      });
+          let dataURL = canvas.toDataURL("image/png");
+          // this.downloadImage(dataURL);
+          this.haibaoData = dataURL
+          this.$toast.clear();
+          this.isShowSharePopup = true;
+        });
+      }, 100)
     },
     downloadImage(url) {
       // 创建一个 img 标签，把图片插入到 DOM 中
@@ -185,20 +227,23 @@ export default {
       this.img2base64(this.shareBg).then(res => {
         this.shareBg2Base64 = res;
         if (this.shareBg2Base64 && this.shareMainImage2Base64) {
-          this.isShowSharePopup = true;
-          this.$toast.clear();
+          setTimeout(() => {
+            this.productionImage();
+          }, 100)
         }
       })
       this.img2base64(this.jobInfo.MainImage).then(res => {
         this.shareMainImage2Base64 = res;
         if (this.shareBg2Base64 && this.shareMainImage2Base64) {
-          this.isShowSharePopup = true;
-          this.$toast.clear();
+          setTimeout(() => {
+            this.productionImage();
+          }, 100)
         }
       })
     }
   },
   created() {
+    this.qr();
     this.getH5JobInfo();
   }
 };
@@ -243,26 +288,66 @@ export default {
   }
 }
 #poster {
-  position: relative;
+  position: fixed;
+  top: -10000px;
   color: #ffffff;
+  width: 300px;
+  .poster {
+    position: absolute;
+    top: 40px;
+    left: 36px;
+    right: 30px;
+    bottom: 80px;
+    overflow: hidden;
+  }
+  .poster-info {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
   .poster-image {
     width: 80px;
     height: 60px;
-    position: absolute;
-    top: 50px;
-    left: 40px;
-    z-index: 100;
+    border-radius: 4px;
+    margin-right: 10px;
   }
   .poster-title {
-    position: absolute;
-    top: 50px;
-    left: 40px;
-    right: 40px;
-    font-size: 16px;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
-  .poster-detail {
+  .label {
+    .tag {
+      display: inline-block;
+      height: 18px;
+      line-height: 18px;
+      background: #fd9f2d;
+      margin-bottom: 6px;
+      margin-right: 5px;
+      padding: 0 8px;
+      border-radius: 9px; 
+    }
+  }
+  .detail {
     position: absolute;
-    top: 30px;
+    bottom: 30px;
+    right: 110px;
+    .top {
+      color: #fff;
+      margin-bottom: 2px;
+    }
+  }
+  .qr-img {
+    position: absolute;
+    bottom: 30px;
+    right: 22px;
+    width: 80px;
+    height: 80px;
+  }
+  .van-icon-me {
+    display: inline-block;
+    z-index: 10000;
+    
   }
 }
 </style>
