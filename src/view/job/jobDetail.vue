@@ -1,61 +1,70 @@
 <template>
-  <div style="background: #eee;position: relative;">
+  <div style="background: #eee;position: relative;margin-bottom: 55px;">
     <back></back>
-    <van-swipe :autoplay="5000" class="van-swipe-me">
-      <van-swipe-item v-for="(image, index) in jobInfo.Images" :key="index">
-        <van-image width="100%" height="100%" fit="cover" lazy-load :src="image" />
-      </van-swipe-item>
-    </van-swipe>
-    <div class="p10 card">
-      <div class="f16 fb">{{jobInfo.Title}}</div>
-      <div class="f16" v-if="jobInfo.KeyWords">
-        <van-tag
-          round
-          color="#c8c8c8"
-          class="mr5 mb10 mt10"
-          v-for="(item, index) in jobInfo.KeyWords.split(',')"
-          :key="index"
-          @click="onSearchByLabel(item)"
-        >{{item}}</van-tag>
-      </div>
-      <div class="mb10 f14">
-        厂发薪资：
-        <span class="money">{{jobInfo.SalaryByFactory}}</span>元/小时
-      </div>
-      <div class="f14">面试地址：{{jobInfo.CompanyAddress}}</div>
-    </div>
-    <div class="p10 card f14">
-      <div class="fb title">平台补贴</div>
-      <div class="lh100" v-html="jobInfo.Allowance"></div>
-    </div>
-    <div class="p10 card f14">
-      <div class="fb title">薪资福利</div>
-      <div class="lh100" v-html="jobInfo.SalaryDesc"></div>
-    </div>
-    <div class="p10 card">
-      <div class="f14 fb title">录用条件</div>
-      <div class="lh100 f14" v-html="jobInfo.EmployCondition"></div>
-    </div>
-    <div class="p10 card f14">
-      <div class="f14 fb title">岗位介绍</div>
-      <div class="lh100" v-html="jobInfo.JobDesc"></div>
-    </div>
-    <div class="p10 card f14">
-      <div class="f14 fb title">公司介绍</div>
-      <div class="lh100" v-html="jobInfo.CompanyDesc"></div>
-    </div>
-    <div class="footer-bar">
-      <div class="left">
-        <van-icon name="share" size="20" @click="share" />
-        <div class="f14">分享</div>
-      </div>
-      <div class="right" @click="apply">
-        <div>
-          <span class="money">{{jobInfo.SalaryByFactory}}元/小时</span>
+    <van-skeleton
+      class="mb50"
+      title
+      :row="30"
+      :loading="loading"
+      :animate="false"
+    >
+      <van-swipe :autoplay="5000" class="van-swipe-me">
+        <van-swipe-item v-for="(image, index) in jobInfo.Images" :key="index">
+          <van-image width="100%" height="100%" fit="cover" lazy-load :src="image" />
+        </van-swipe-item>
+      </van-swipe>
+      <div class="p10 card">
+        <div class="f16 fb">{{jobInfo.Title}}</div>
+        <div class="f16" v-if="jobInfo.KeyWords">
+          <van-tag
+            round
+            color="#c8c8c8"
+            class="mr5 mb10 mt10"
+            v-for="(item, index) in jobInfo.KeyWords.split(',')"
+            :key="index"
+            @click="onSearchByLabel(item)"
+          >{{item}}</van-tag>
         </div>
-        <div class="f14" style="margin-top: 3px;">马上报名</div>
+        <div class="mb10 f14">
+          厂发薪资：
+          <span class="money">{{jobInfo.SalaryByFactory}}</span>元/小时
+        </div>
+        <div class="f14">面试地址：{{jobInfo.CompanyAddress}}</div>
       </div>
-    </div>
+      <div class="p10 card f14">
+        <div class="fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />平台补贴</div>
+        <div class="lh100" v-html="jobInfo.Allowance"></div>
+      </div>
+      <div class="p10 card f14">
+        <div class="fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />薪资福利</div>
+        <div class="lh100" v-html="jobInfo.SalaryDesc"></div>
+      </div>
+      <div class="p10 card">
+        <div class="f14 fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />录用条件</div>
+        <div class="lh100 f14" v-html="jobInfo.EmployCondition"></div>
+      </div>
+      <div class="p10 card f14">
+        <div class="f14 fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />岗位介绍</div>
+        <div class="lh100" v-html="jobInfo.JobDesc"></div>
+      </div>
+      <div class="p10 card f14 mb50">
+        <div class="f14 fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />公司介绍</div>
+        <div class="lh100" v-html="jobInfo.CompanyDesc"></div>
+      </div>
+      <div class="footer-bar">
+        <div class="left">
+          <van-icon name="share" size="20" @click="share" />
+          <div class="f14">分享</div>
+        </div>
+        <div class="right" @click="apply">
+          <div>
+            <span class="money">{{jobInfo.SalaryByFactory}}元/小时</span>
+          </div>
+          <div class="f14" style="margin-top: 3px;">马上报名</div>
+        </div>
+      </div>
+    </van-skeleton>
+    
     <van-popup
       v-model="isShowSharePopup"
       style="background: unset;width: 300px;height: 400px;overflow-y: unset;"
@@ -211,6 +220,7 @@ export default {
         forbidClick: true,
         duration: 0
       });
+      this.loading = true;
       getH5JobInfo({ Id: this.$route.query.id })
         .then(res => {
           let images = res.Images || [];
@@ -218,6 +228,7 @@ export default {
           this.jobInfo = res;
         })
         .finally(() => {
+          this.loading = false;
           this.$toast.clear();
         });
     },
@@ -264,6 +275,9 @@ export default {
         useCORS: true,
         scale: 1
       };
+      window.pageYOffset = 0;
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
       setTimeout(() => {
         html2canvas(canvasBox, options).then(canvas => {
           let dataURL = canvas.toDataURL("image/png");
@@ -271,7 +285,7 @@ export default {
           this.$toast.clear();
           this.isShowSharePopup = true;
         });
-      }, 1000);
+      }, 100);
     },
     // 将图片转为base64格式
     img2base64(url, crossOrigin = "anonymous") {
@@ -333,6 +347,10 @@ export default {
 .card {
   background: #ffffff;
   margin-bottom: 5px;
+  .van-icon {
+    margin-right: 2px;
+    margin-top: -3px;
+  }
 }
 .footer-bar {
   text-align: center;
