@@ -1,5 +1,6 @@
 <template>
-  <div style="background: #eee;">
+  <div style="background: #eee;position: relative;">
+    <back></back>
     <van-swipe :autoplay="5000" class="van-swipe-me">
       <van-swipe-item v-for="(image, index) in jobInfo.Images" :key="index">
         <van-image width="100%" height="100%" fit="cover" lazy-load :src="image" />
@@ -55,14 +56,99 @@
         <div class="f14" style="margin-top: 3px;">马上报名</div>
       </div>
     </div>
-    <van-popup v-model="isShowSharePopup" style="background: unset;width: 300px;height: 400px;overflow-y: unset;">
-      <img width="300px" :src="haibaoData" alt="">
+    <van-popup
+      v-model="isShowSharePopup"
+      style="background: unset;width: 300px;height: 400px;overflow-y: unset;"
+    >
+      <img width="300px" :src="haibaoData" alt />
       <div class="tc" style="z-index: 10000;">
         <div style="color: #ffffff;margin-bottom:3px;z-index: 10000;" class="f14">长按海报下载并分享</div>
-        <van-icon @click="isShowSharePopup=false" class="van-icon-me mt10" color="#eee" size="32" name="clear" />
+        <van-icon
+          @click="isShowSharePopup=false"
+          class="van-icon-me mt10"
+          color="#eee"
+          size="32"
+          name="clear"
+        />
       </div>
     </van-popup>
-    <div ref="imageWrapper" id="poster">
+    <div
+      ref="imageWrapper"
+      style="position: fixed;
+  background: unset;
+  top: -10000px;
+  color: #ffffff;
+  width: 300px;"
+      id="poster"
+    >
+      <img style="width: 300px;" :src="shareBg2Base64" alt />
+      <div
+        style="position: absolute;
+    top: 40px;
+    left: 36px;
+    right: 30px;
+    bottom: 80px;
+    overflow: hidden;"
+      >
+        <div
+          style="height: 60px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;"
+        >
+          <img
+            style="width: 80px;
+    height: 60px;
+    border-radius: 4px;
+    margin-right: 10px;"
+            :src="shareMainImage2Base64"
+            alt
+          />
+          <div>
+            <div style="font-size: 14px;
+    margin-bottom: 8px;">{{jobInfo.Title}}</div>
+            <div class="poster-detail">
+              工价：
+              <span class="money">{{jobInfo.SalaryByFactory}}</span>
+              <span class="unit">元/小时</span>
+            </div>
+          </div>
+        </div>
+        <div class="label" v-if="jobInfo.KeyWords">
+          <div
+            style="display: inline-block;
+      height: 18px;
+      line-height: 18px;
+      background: #fd9f2d;
+      margin-bottom: 6px;
+      margin-right: 5px;
+      padding: 0 8px;
+      border-radius: 9px; "
+            v-for="(item, index) in jobInfo.KeyWords.split(',')"
+            :key="index"
+            @click="onSearchByLabel(item)"
+          >{{item}}</div>
+        </div>
+        <div class="jod-desc" v-html="jobInfo.JobDesc"></div>
+      </div>
+      <div style="position: absolute;
+    bottom: 30px;
+    right: 110px;">
+        <div style="color: #fff;
+      margin-bottom: 2px;">长按识别二维码</div>
+        <div>查看详情/去报名</div>
+      </div>
+      <img
+        style="position: absolute;
+    bottom: 30px;
+    right: 22px;
+    width: 80px;
+    height: 80px;"
+        :src="qrData"
+        alt
+      />
+    </div>
+    <!-- <div ref="imageWrapper" id="poster">
         <img style="width: 300px;" :src="shareBg2Base64" alt="">
         <div class="poster">
           <div class="poster-info">
@@ -90,7 +176,7 @@
           <div>查看详情/去报名</div>
         </div>
         <img class="qr-img" :src="qrData" alt="">
-      </div>
+    </div>-->
   </div>
 </template>
 
@@ -98,13 +184,17 @@
 var QRCode = require("qrcode");
 import { getH5JobInfo, applyJob } from "@/api/job";
 import html2canvas from "html2canvas";
+import back from "_c/back"
 export default {
   name: "",
+  components: {
+    back
+  },
   data() {
     return {
       loading: false,
       isShowSharePopup: false,
-      shareBg: require('../../assets/images/share-bg.png'),
+      shareBg: require("../../assets/images/share-bg.png"),
       shareBg2Base64: "",
       shareMainImage2Base64: "",
       qrData: "",
@@ -133,7 +223,8 @@ export default {
     // 生二维码
     qr() {
       let _this = this;
-      QRCode.toDataURL(location.href, function(err, url) {
+      let href = `${location.origin}?inviteCode=${this.$store.state.user.userInfo.PersonalCode}${location.hash}`;
+      QRCode.toDataURL(href, function(err, url) {
         _this.qrData = url;
       });
     },
@@ -159,62 +250,43 @@ export default {
       // 获取父级的宽高
       const width = parseInt(window.getComputedStyle(canvasBox).width);
       const height = parseInt(window.getComputedStyle(canvasBox).height);
-
       // 宽高 * 2 并放大 2 倍 是为了防止图片模糊
-      canvas.width = width*2;
-      canvas.height = height*2;
+      canvas.width = width * 2;
+      canvas.height = height * 2;
       canvas.style.width = width + "px";
       canvas.style.height = height + "px";
       const context = canvas.getContext("2d");
-      context.scale(0.75, 0.75);
-
+      context.scale(2, 2);
       const options = {
         backgroundColor: null,
         canvas: canvas,
-        useCORS: true
+        useCORS: true,
+        scale: 1
       };
       setTimeout(() => {
         html2canvas(canvasBox, options).then(canvas => {
-        // toDataURL 图片格式转成 base64
           let dataURL = canvas.toDataURL("image/png");
-          // this.downloadImage(dataURL);
-          this.haibaoData = dataURL
+          this.haibaoData = dataURL;
           this.$toast.clear();
           this.isShowSharePopup = true;
         });
-      }, 100)
-    },
-    downloadImage(url) {
-      // 创建一个 img 标签，把图片插入到 DOM 中
-      // 这里使用 img 是因为在客户端中，不能直接下载，要调用原生的方法
-      // const parents = this.$refs.selfReport;
-      const createImg = document.createElement("img");
-      // const insertEle = this.$refs.insetElement;
-      // parents.insertBefore(createImg, parents.childNodes[0]);
-
-      createImg.setAttribute("src", url);
-
-      // 如果是在网页中可以直接创建一个 a 标签直接下载
-      let a = document.createElement("a");
-      a.href = url;
-      a.download = new Date().getTime() + ".png";
-      a.click();
+      }, 500);
     },
     // 将图片转为base64格式
-    img2base64(url, crossOrigin = 'anonymous') {
+    img2base64(url, crossOrigin = "anonymous") {
       return new Promise(resolve => {
         const img = new Image();
         img.onload = () => {
-          const c = document.createElement('canvas');
+          const c = document.createElement("canvas");
           c.width = img.naturalWidth;
           c.height = img.naturalHeight;
-          const cxt = c.getContext('2d');
+          const cxt = c.getContext("2d");
           cxt.drawImage(img, 0, 0);
           // 得到图片的base64编码数据
-          resolve(c.toDataURL('image/png'));
+          resolve(c.toDataURL("image/png"));
         };
         // 结合合适的CORS响应头，实现在画布中使用跨域<img>元素的图像
-        crossOrigin && img.setAttribute('crossOrigin', crossOrigin);
+        crossOrigin && img.setAttribute("crossOrigin", crossOrigin);
         img.src = url;
       });
     },
@@ -227,19 +299,15 @@ export default {
       this.img2base64(this.shareBg).then(res => {
         this.shareBg2Base64 = res;
         if (this.shareBg2Base64 && this.shareMainImage2Base64) {
-          setTimeout(() => {
-            this.productionImage();
-          }, 100)
+          this.productionImage();
         }
-      })
+      });
       this.img2base64(this.jobInfo.MainImage).then(res => {
         this.shareMainImage2Base64 = res;
         if (this.shareBg2Base64 && this.shareMainImage2Base64) {
-          setTimeout(() => {
-            this.productionImage();
-          }, 100)
+          this.productionImage();
         }
-      })
+      });
     }
   },
   created() {
@@ -287,67 +355,68 @@ export default {
     color: #ffffff;
   }
 }
-#poster {
-  position: fixed;
-  top: -10000px;
-  color: #ffffff;
-  width: 300px;
-  .poster {
-    position: absolute;
-    top: 40px;
-    left: 36px;
-    right: 30px;
-    bottom: 80px;
-    overflow: hidden;
-  }
-  .poster-info {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .poster-image {
-    width: 80px;
-    height: 60px;
-    border-radius: 4px;
-    margin-right: 10px;
-  }
-  .poster-title {
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-  .label {
-    .tag {
-      display: inline-block;
-      height: 18px;
-      line-height: 18px;
-      background: #fd9f2d;
-      margin-bottom: 6px;
-      margin-right: 5px;
-      padding: 0 8px;
-      border-radius: 9px; 
-    }
-  }
-  .detail {
-    position: absolute;
-    bottom: 30px;
-    right: 110px;
-    .top {
-      color: #fff;
-      margin-bottom: 2px;
-    }
-  }
-  .qr-img {
-    position: absolute;
-    bottom: 30px;
-    right: 22px;
-    width: 80px;
-    height: 80px;
-  }
-  .van-icon-me {
-    display: inline-block;
-    z-index: 10000;
-    
-  }
-}
+// #poster {
+//   position: fixed;
+//   top: -10000px;
+//   color: #ffffff;
+//   background: unset;
+//   width: 300px;
+//   .poster {
+//     position: absolute;
+//     top: 40px;
+//     left: 36px;
+//     right: 30px;
+//     bottom: 80px;
+//     overflow: hidden;
+//   }
+//   .poster-info {
+//     height: 60px;
+//     display: flex;
+//     align-items: center;
+//     margin-bottom: 10px;
+//   }
+//   .poster-image {
+//     width: 80px;
+//     height: 60px;
+//     border-radius: 4px;
+//     margin-right: 10px;
+//   }
+//   .poster-title {
+//     font-size: 14px;
+//     margin-bottom: 8px;
+//   }
+//   .label {
+//     .tag {
+//       display: inline-block;
+//       height: 18px;
+//       line-height: 18px;
+//       background: #fd9f2d;
+//       margin-bottom: 6px;
+//       margin-right: 5px;
+//       padding: 0 8px;
+//       border-radius: 9px;
+//     }
+//   }
+//   .detail {
+//     position: absolute;
+//     bottom: 30px;
+//     right: 110px;
+//     .top {
+//       color: #fff;
+//       margin-bottom: 2px;
+//     }
+//   }
+//   .qr-img {
+//     position: absolute;
+//     bottom: 30px;
+//     right: 22px;
+//     width: 80px;
+//     height: 80px;
+//   }
+//   .van-icon-me {
+//     display: inline-block;
+//     z-index: 10000;
+
+//   }
+// }
 </style>

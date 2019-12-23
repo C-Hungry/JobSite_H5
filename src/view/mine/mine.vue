@@ -2,7 +2,7 @@
   <div style="background: #eee;" class="pt5">
     <div class="info">
       <div class="left">
-        <van-image width="80" height="80" fit="cover" round :src="$store.state.user.userInfo.HeadImage"></van-image>
+        <van-image width="80" height="80" fit="cover" round :src="$store.state.user.userInfo && $store.state.user.userInfo.HeadImage"></van-image>
       </div>
       <div class="right" v-if="$store.state.user.userInfo.RealName || $store.state.user.userInfo.NickName">
         <div class="mb5">{{$store.state.user.userInfo.RealName || $store.state.user.userInfo.NickName}}</div>
