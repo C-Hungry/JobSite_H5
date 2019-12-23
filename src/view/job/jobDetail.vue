@@ -78,7 +78,8 @@
   background: unset;
   top: -10000px;
   color: #ffffff;
-  width: 300px;"
+  width: 300px;
+  height: 385px;"
       id="poster"
     >
       <img style="width: 300px;" :src="shareBg2Base64" alt />
@@ -270,7 +271,7 @@ export default {
           this.$toast.clear();
           this.isShowSharePopup = true;
         });
-      }, 500);
+      }, 1000);
     },
     // 将图片转为base64格式
     img2base64(url, crossOrigin = "anonymous") {

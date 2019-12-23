@@ -16,7 +16,7 @@
         <van-cell to="bindBankCard" icon="balance-pay" title="绑定补贴卡" is-link />
         <van-cell to="myWallet" icon="paid" title="我的钱包" is-link />
         <van-cell to="myInvite" icon="good-job-o" title="我的推荐" is-link />
-        <van-cell @click="apply" icon="phone-o" title="更换手机" is-link />
+        <!-- <van-cell @click="apply" icon="phone-o" title="更换手机" is-link /> -->
         <van-cell @click="apply" icon="friends-o" title="关于我们" is-link />
       </van-cell-group>
     </div>
