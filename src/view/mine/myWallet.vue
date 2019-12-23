@@ -3,7 +3,7 @@
     <div class="wallet-header">
       <div class="mymoney">
         <div class="mb10 f14"><van-icon class="vm mr5" style="margin-top: -5px;" name="balance-o" size="16"/>我的钱包</div>
-        <div class="f16">￥{{$store.state.user.userInfo.Balance}}<span class="f12 ml5">元</span></div>
+        <div class="f16">￥{{$store.state.user.userInfo && $store.state.user.userInfo.Balance}}<span class="f12 ml5">元</span></div>
       </div>
       <div class="record" @click="toCashOutRecord">提现记录</div>
     </div>

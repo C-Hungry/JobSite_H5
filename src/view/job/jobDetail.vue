@@ -7,7 +7,7 @@
       </van-swipe-item>
     </van-swipe>
     <div class="p10 card">
-      <div class="f16">{{jobInfo.Title}}</div>
+      <div class="f16 fb">{{jobInfo.Title}}</div>
       <div class="f16" v-if="jobInfo.KeyWords">
         <van-tag
           round
@@ -18,29 +18,29 @@
           @click="onSearchByLabel(item)"
         >{{item}}</van-tag>
       </div>
-      <div class="mb10">
+      <div class="mb10 f14">
         厂发薪资：
         <span class="money">{{jobInfo.SalaryByFactory}}</span>元/小时
       </div>
-      <div>面试地址：{{jobInfo.CompanyAddress}}</div>
+      <div class="f14">面试地址：{{jobInfo.CompanyAddress}}</div>
     </div>
-    <div class="p10 card">
-      <div class="f14 fb title">平台补贴</div>
+    <div class="p10 card f14">
+      <div class="fb title">平台补贴</div>
       <div class="lh100" v-html="jobInfo.Allowance"></div>
     </div>
-    <div class="p10 card">
-      <div class="f14 fb title">薪资福利</div>
+    <div class="p10 card f14">
+      <div class="fb title">薪资福利</div>
       <div class="lh100" v-html="jobInfo.SalaryDesc"></div>
     </div>
     <div class="p10 card">
       <div class="f14 fb title">录用条件</div>
-      <div class="lh100" v-html="jobInfo.EmployCondition"></div>
+      <div class="lh100 f14" v-html="jobInfo.EmployCondition"></div>
     </div>
-    <div class="p10 card">
+    <div class="p10 card f14">
       <div class="f14 fb title">岗位介绍</div>
       <div class="lh100" v-html="jobInfo.JobDesc"></div>
     </div>
-    <div class="p10 card">
+    <div class="p10 card f14">
       <div class="f14 fb title">公司介绍</div>
       <div class="lh100" v-html="jobInfo.CompanyDesc"></div>
     </div>
@@ -224,7 +224,7 @@ export default {
     // 生二维码
     qr() {
       let _this = this;
-      let href = `${location.origin}?inviteCode=${this.$store.state.user.userInfo.PersonalCode}${location.hash}`;
+      let href = `${location.origin}?inviteCode=${this.$store.state.user.userInfo && this.$store.state.user.userInfo.PersonalCode || ""}${location.hash}`;
       QRCode.toDataURL(href, function(err, url) {
         _this.qrData = url;
       });
