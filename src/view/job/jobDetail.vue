@@ -1,10 +1,9 @@
 <template>
-  <div style="background: #eee;position: relative;margin-bottom: 55px;">
+  <div style="background: #eee;position: relative;">
     <back></back>
     <van-skeleton
-      class="mb50"
       title
-      :row="30"
+      :row="20"
       :loading="loading"
       :animate="false"
     >
@@ -47,7 +46,7 @@
         <div class="f14 fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />岗位介绍</div>
         <div class="lh100" v-html="jobInfo.JobDesc"></div>
       </div>
-      <div class="p10 card f14 mb50">
+      <div class="p10 card f14 pb50">
         <div class="f14 fb title"><van-icon class="vm" size="14" color="#0795eb" name="label-o" />公司介绍</div>
         <div class="lh100" v-html="jobInfo.CompanyDesc"></div>
       </div>
