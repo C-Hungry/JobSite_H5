@@ -2,7 +2,7 @@
   <div style="background: #eee;" class="pt5">
     <div class="info">
       <div class="left">
-        <van-image width="80" height="80" fit="cover" round :src="$store.state.user.userInfo.HeadImage"></van-image>
+        <van-image width="80" height="80" fit="cover" round :src="$store.state.user.userInfo && $store.state.user.userInfo.HeadImage"></van-image>
       </div>
       <div class="right" v-if="$store.state.user.userInfo.RealName || $store.state.user.userInfo.NickName">
         <div class="mb5">{{$store.state.user.userInfo.RealName || $store.state.user.userInfo.NickName}}</div>
@@ -16,7 +16,7 @@
         <van-cell to="bindBankCard" icon="balance-pay" title="绑定补贴卡" is-link />
         <van-cell to="myWallet" icon="paid" title="我的钱包" is-link />
         <van-cell to="myInvite" icon="good-job-o" title="我的推荐" is-link />
-        <van-cell @click="apply" icon="phone-o" title="更换手机" is-link />
+        <!-- <van-cell @click="apply" icon="phone-o" title="更换手机" is-link /> -->
         <van-cell @click="apply" icon="friends-o" title="关于我们" is-link />
       </van-cell-group>
     </div>

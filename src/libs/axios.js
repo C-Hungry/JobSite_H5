@@ -52,7 +52,7 @@ class HttpRequest {
         return data.Data
       } else if (data.ResponseID == 1) {
         Toast(data.Message || '网络请求出错，请登录重试');
-        if (data.Message == '登录失败') {
+        if (data.Message == '登录失败' || data.Message == '用户信息异常，请联系管理员') {
           store.dispatch('handleLogOut').then(() => {
             router.push({
               name: 'mine'
@@ -62,7 +62,7 @@ class HttpRequest {
         return Promise.reject(data)
       } else {
         Toast(data.Message || '网络请求出错，请登录重试');
-        if (data.Message == '登录失败') {
+        if (data.Message == '登录失败' || data.Message == '用户信息异常，请联系管理员') {
           store.dispatch('handleLogOut').then(() => {
             router.push({
               name: 'mine'

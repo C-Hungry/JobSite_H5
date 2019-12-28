@@ -4,8 +4,8 @@
     <div class="form">
       <div class="title">绑定手机号码</div>
       <van-cell-group class="mb20">
-        <van-field required v-model="formData.Phone" clearable label="手机号码" placeholder="手机号码" />
-        <van-field required v-model="formData.VerifyCode" clearable label="短信验证码" placeholder="短信验证码">
+        <van-field required v-model="formData.Phone" label="手机号码" placeholder="手机号码" />
+        <van-field required v-model="formData.VerifyCode" label="短信验证码" placeholder="短信验证码">
           <van-button slot="button" @click="getVerifyCode" :disabled="timerNum > 0" size="small" color="#1585F5">{{timerNum > 0 ? `${timerNum}秒`:'发送验证码'}}</van-button>
         </van-field>
       </van-cell-group>
@@ -60,7 +60,7 @@ export default {
     }
   },
   created() {
-    this.formData = this.$store.state.user.userInfo.Phone || "";
+    this.formData.Phone = (this.$store.state.user.userInfo && this.$store.state.user.userInfo.Phone) || "";
   },
   destroyed() {
     this.intervaler && clearInterval(this.intervaler)
