@@ -1055,7 +1055,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"token\":\"3e4ad9932fbb4240b71404f69a06d997\"\n}"
+					"raw": "{\n\t\"token\":\"{{h5token}}\",\n}"
 				},
 				"url": {
 					"raw": "{{url}}/api/H5/GetUserInfo",
@@ -1280,6 +1280,96 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "系统配置",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\",\n\t\"InviteReward\":20\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/Job/SystemConfigSet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Job",
+						"SystemConfigSet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取系统配置",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{token}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/Job/SystemConfigGet",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Job",
+						"SystemConfigGet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发送验证码",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"{{h5token}}\",\n\t\"Phone\":\"13253373178\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/H5/SendVerifyCode",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"H5",
+						"SendVerifyCode"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1306,13 +1396,13 @@
 	],
 	"variable": [
 		{
-			"id": "31b4724a-430f-426e-acbb-d0ef9e592319",
+			"id": "2ce9fb4a-6baf-4e56-b1f0-82d5a0488d9d",
 			"key": "url",
 			"value": "http://192.168.1.234:600",
 			"type": "string"
 		},
 		{
-			"id": "9d217908-8df3-4331-a66f-938676485fb4",
+			"id": "d6b8c437-8c43-4dff-9f01-8b1518e8e017",
 			"key": "token",
 			"value": "7ea7f41087794f1292881f419810de30",
 			"type": "string"
