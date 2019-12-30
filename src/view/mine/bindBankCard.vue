@@ -3,11 +3,12 @@
     <div class="form">
       <div class="title">绑定补贴卡</div>
       <van-cell-group class="mb20">
-        <van-field required v-model="formData.RealName" input-align="right" clearable label="姓名" placeholder="开户人姓名" />
+        <van-field required disabled v-model="formData.RealName" input-align="right" clearable label="姓名" placeholder="开户人姓名" />
         <van-field required v-model="formData.IdCard" input-align="right" clearable label="身份证号" placeholder="开户人身份证号" />
         <van-field required v-model="formData.BankAccount" input-align="right" clearable label="银行卡号" placeholder="开户人银行卡号" />
         <van-cell required title="开户银行" @click="isShowBankCardPopup=true" is-link :value="formData.BankName || '开户银行'" />
         <van-cell required title="开户地区" @click="isShowAreaPopup=true" is-link :value="(formData.Province + formData.City) || '开户地区'" />
+        <van-field required v-model="formData.AliPay" input-align="right" clearable label="支付宝账户" placeholder="支付宝账户" />
       </van-cell-group>
       <van-button color="#1585F5" style="width: 100%;" @click="bindBankCard">提交</van-button>
     </div>
@@ -75,10 +76,10 @@ export default {
       }
     },
     bindBankCard() {
-      if (!this.formData.RealName) {
-        this.$toast('请输入姓名');
-        return
-      }
+      // if (!this.formData.RealName) {
+      //   this.$toast('请输入姓名');
+      //   return
+      // }
       if (!this.formData.IdCard) {
         this.$toast('请输入身份证号');
         return
@@ -95,6 +96,10 @@ export default {
         this.$toast('请选择开户地区');
         return
       }
+      if (!this.formData.AliPay) {
+        this.$toast('请输入支付宝账户');
+        return
+      }
       this.$toast.loading({
         message: '提交中...',
         forbidClick: true,
@@ -107,12 +112,25 @@ export default {
     }
   },
   created() {
-    // this.formData = this.$store.state.user.userInfo.Phone || "";
+    if (this.$store.state.user.userInfo && this.$store.state.user.userInfo.BankInfo) {
+      let bankInfo = this.$store.state.user.userInfo.BankInfo;
+      this.formData.Id = bankInfo.Id;
+      this.formData.RealName = this.$store.state.user.userInfo.RealName;
+      this.formData.IdCard = bankInfo.IdCard;
+      this.formData.BankAccount = bankInfo.BankAccount;
+      this.formData.BankName = bankInfo.BankName;
+      this.formData.Province = bankInfo.Province;
+      this.formData.City = bankInfo.City;
+      this.formData.AliPay = bankInfo.AliPay;
+    }
   },
 };
 </script>
 
 <style lang="less" scoped>
+.van-cell__value {
+  color: #333;
+}
  .container {
    position: fixed;
    top: 0;

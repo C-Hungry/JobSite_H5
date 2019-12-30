@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { bindPhone } from '@/api/user'
+import { bindPhone, sendVerifyCode } from '@/api/user'
 export default {
   name: "",
   data() {
@@ -30,14 +30,22 @@ export default {
   },
   methods: {
     getVerifyCode() {
-      this.timerNum = 60;
-      this.intervaler = setInterval(()=>{
-        this.timerNum--;
-        if (this.timerNum == 0) {
-          this.intervaler && clearInterval(this.intervaler)
-          this.intervaler = null;
-        }
-      }, 1000)
+      if (!this.formData.Phone) {
+        this.$toast('请先输入手机号码');
+        return
+      }
+      sendVerifyCode({
+        Phone: this.formData.Phone
+      }).then(()=> {
+        this.timerNum = 60;
+        this.intervaler = setInterval(()=>{
+          this.timerNum--;
+          if (this.timerNum == 0) {
+            this.intervaler && clearInterval(this.intervaler)
+            this.intervaler = null;
+          }
+        }, 1000)
+      })
     },
     bindPhone() {
       if (!this.formData.Phone) {

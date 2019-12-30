@@ -96,6 +96,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-cell__value {
+  color: #333;
+}
  .container {
    position: fixed;
    top: 0;

@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 // import i18n from '@/locale'
 import config from '@/config'
-import FastClick from 'fastclick'
+// import FastClick from 'fastclick'
 import 'normalize.css/normalize.css'
 import 'lib-flexible/flexible.js'
 import '@/assets/styles/common.less'
@@ -32,11 +32,17 @@ Vue.config.productionTip = false
 Vue.prototype.$config = config
 Vue.prototype.$moment = moment
 
+// FastClick.prototype.focus = () => {
+//   let length = 0;
+//   let isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+// }
+
 if ('addEventListener' in document) {
   document.addEventListener(
     'DOMContentLoaded',
     function () {
-      FastClick.attach(document.body)
+      // FastClick.attach(document.body)
     },
     false
   )

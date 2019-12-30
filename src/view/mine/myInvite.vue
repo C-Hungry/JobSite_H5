@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <ul class="invite-list" v-if="inviteList.length > 0">
+    <ul class="invite-list">
       <li class="invite-item" v-for="(item, index) in inviteList" :key="index">
         <div class="status">已注册</div>
         <div class="info">
@@ -8,7 +8,7 @@
             <van-image width="40" height="40" fit="cover" round :src="item.HeadImage"></van-image>
           </div>
           <div class="right">
-            <div class="mb5">{{$store.state.user.userInfo.RealName || $store.state.user.userInfo.NickName}}</div>
+            <div class="mb5">{{item.RealName || item.NickName}}</div>
             <div>
               <van-icon size="16" class="vm mr3" color="#1585F5" name="phone-o" />
               <a class="primary" :href="`tel:${item.Phone}`">{{item.Phone || '-'}}</a>

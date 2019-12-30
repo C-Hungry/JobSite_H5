@@ -1,6 +1,6 @@
 <template>
   <div class="back">
-    <van-icon @click="backToHome" class="vm" size="20" color="#333333" name="arrow-left" />
+    <van-icon @click="backToHome" class="vm" size="20" color="#ffffff" name="arrow-left" />
   </div>
 </template>
 
@@ -28,7 +28,7 @@
     left: 15px;
     width: 32px;
     height: 32px;
-    background: rgba(153, 153, 153, 0.7);
+    background: rgba(130, 130, 130, 0.7);
     border-radius: 50%;
     z-index: 1000;
     text-align: center;

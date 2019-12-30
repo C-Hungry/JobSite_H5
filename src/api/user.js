@@ -97,3 +97,12 @@ export const getCashOutList = (data) => {
     method: 'post'
   })
 }
+
+// 提现记录
+export const sendVerifyCode = (data) => {
+  return axios.request({
+    url: '/api/H5/SendVerifyCode',
+    data,
+    method: 'post'
+  })
+}

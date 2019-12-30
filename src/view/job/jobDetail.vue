@@ -251,6 +251,9 @@ export default {
           message: "报名成功",
           forbidClick: true
         });
+        this.$router.push({
+          name: 'myJobs'
+        })
       });
     },
     productionImage() {
