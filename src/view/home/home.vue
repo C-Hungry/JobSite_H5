@@ -10,6 +10,7 @@
           placeholder="请输入搜索关键词"
           disabled
         />
+        <van-icon @click="switchPath()" size="32" color="#fff" class="van-icon-me" name="qr" />
         <van-swipe :autoplay="5000" class="van-swipe-me">
           <van-swipe-item v-for="(image, index) in homeData.TopBanners" :key="index">
             <van-image width="100%" height="100%" fit="cover" lazy-load :src="image" />
@@ -268,11 +269,17 @@ export default {
   height: 150px;
   position: relative;
 }
+.van-icon-me {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
 .van-search-me {
   position: absolute;
   top: 0;
   left: 10px;
-  right: 10px;
+  right: 40px;
   z-index: 100;
 }
 .job-classify {

@@ -13,6 +13,15 @@ export default [
     component: () => import('@/view/home/home')
   },
   {
+    path: '/myQR',
+    name: 'myQR',
+    meta: {
+      title: '安薪打工',
+      keepAlive: true
+    },
+    component: () => import('@/view/home/myQR')
+  },
+  {
     path: '/search',
     name: 'search',
     meta: {
