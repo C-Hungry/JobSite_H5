@@ -17,7 +17,8 @@ export default [
     name: 'myQR',
     meta: {
       title: '安薪打工',
-      keepAlive: true
+      keepAlive: true,
+      hideFooter: true
     },
     component: () => import('@/view/home/myQR')
   },

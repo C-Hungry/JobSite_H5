@@ -10,7 +10,7 @@
           placeholder="请输入搜索关键词"
           disabled
         />
-        <van-icon @click="switchPath()" size="32" color="#fff" class="van-icon-me" name="qr" />
+        <van-icon @click="switchPath('myQR')" size="36" color="#fff" class="van-icon-me" name="qr" />
         <van-swipe :autoplay="5000" class="van-swipe-me">
           <van-swipe-item v-for="(image, index) in homeData.TopBanners" :key="index">
             <van-image width="100%" height="100%" fit="cover" lazy-load :src="image" />
