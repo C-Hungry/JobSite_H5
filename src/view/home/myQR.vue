@@ -26,13 +26,14 @@
       <van-icon size="20" class="vm" name="success" />
       无中间环节，工资就是高
     </div>
-    <div class="card">
+    <div class="card mb5">
       <img width="100px" height="100px" src="../../assets/images/myQR.jpg" alt="">
       <div class="text">
         <div class="mb5 f16 fb">关注我，不跑丢</div>
         <div style="color: #666;">一起来安鑫拿高工资</div>
       </div>
     </div>
+    <div class="tl pl10">长按二维码关注我</div>
   </div>
 </template>
 
