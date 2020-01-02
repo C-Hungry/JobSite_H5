@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="f16 fb mb50">安薪打工</div>
+    <div class="f16 fb mb50 title">
+      <img class="mr5" style="margin-top: -4px;" width="18" height="18" src="../../assets/images/logo.jpg" alt="">
+      安薪打工
+    </div>
     <div class="f28 fb mb15">
       在这里20余万人团高工资
     </div>
@@ -24,7 +27,7 @@
       无中间环节，工资就是高
     </div>
     <div class="card">
-      <img width="100px" height="100px" src="../../assets/images/myQR.png" alt="">
+      <img width="100px" height="100px" src="../../assets/images/myQR.jpg" alt="">
       <div class="text">
         <div class="mb5 f16 fb">关注我，不跑丢</div>
         <div style="color: #666;">一起来安鑫拿高工资</div>
@@ -54,6 +57,10 @@ export default {
   background-size: 100% auto;
   padding: 30px;
   color: #ffffff;
+  .title {
+    display: flex;
+    align-items: center;
+  }
   .card {
     background: #EDF5FD;
     border-radius: 8px;
