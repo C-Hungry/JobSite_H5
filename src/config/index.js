@@ -17,8 +17,8 @@ export default {
    * @description api请求基础路径
    */
   baseUrl: {
-    dev: 'http://cpmpapi2.zolerp.cn',
-    pro: 'http://cpmpapi2.zolerp.cn'
+    dev: window.__BASE_CONFIG && window.__BASE_CONFIG.API || 'http://cpmpapi2.zolerp.cn',
+    pro: window.__BASE_CONFIG && window.__BASE_CONFIG.API || 'http://cpmpapi2.zolerp.cn'
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home
@@ -28,8 +28,8 @@ export default {
    * @description 默认打开的首页的路由name值，默认为home
    */
   appId: {
-    dev: 'wx0e88ca5bb6a2a776',
-    pro: 'wx0e88ca5bb6a2a776'
+    dev: window.__BASE_CONFIG && window.__BASE_CONFIG.APPID || 'wx5f76a4976100a3ea',
+    pro: window.__BASE_CONFIG && window.__BASE_CONFIG.APPID || 'wx5f76a4976100a3ea'
     // wx0e88ca5bb6a2a776 测试
     // wx5f76a4976100a3ea 正式
   }
